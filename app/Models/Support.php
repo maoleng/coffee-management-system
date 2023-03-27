@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-class User extends Base
+class Support extends Base
 {
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'email', 'avatar', 'active', 'created_at'
+        'name', 'email', 'content', 'status', 'admin_id', 'created_at',
     ];
 
 }

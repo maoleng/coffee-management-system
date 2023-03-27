@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-class User extends Base
+class Import extends Base
 {
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'email', 'avatar', 'active', 'created_at'
+        'total', 'admin_id', 'supplier_id', 'created_at',
     ];
 
 }
