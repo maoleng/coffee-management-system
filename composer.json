@@ -6,9 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "bensampo/laravel-enum": "^6.3",
+        "firebase/php-jwt": "^6.4",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
+        "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.8"
     },
     "require-dev": {
@@ -30,7 +33,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [
