@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->uuid('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
-            $table->primary(['admin_id', 'supplier_id']);
             $table->dateTime('created_at');
         });
     }
