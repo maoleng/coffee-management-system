@@ -38,8 +38,19 @@
                     <div class="header-action-item">
                         <button class="header-action-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart"><i class="sli-basket-loaded"><span class="count">02</span></i> <span class="amount">$229.00</span></button>
                     </div>
-                    <div class="header-action-item dropdown">
-                        <button class="header-action-toggle" type="button" data-bs-toggle="dropdown"><i class="sli-social-google"></i></button>
+                    <div class="header-action-item main-menu">
+                        @if (authed() === null)
+                            <a href="{{ route('auth.redirect') }}" class="header-action-toggle" type="button"><i class="sli-social-google"></i></a>
+                        @else
+                            <ul>
+                                <li class="has-sub-menu">
+                                    <img src="{{ authed()->avatar }}" class="header-action-toggle" style="width: 50px; height: 50px; margin: 20px 10px">
+                                    <ul class="sub-menu" style="left: -100px">
+                                        <li><a href="{{ route('auth.logout') }}">Log out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        @endif
                     </div>
                     <div class="header-action-item d-lg-none">
                         <button class="header-action-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-header"><i class="sli-menu"></i></button>

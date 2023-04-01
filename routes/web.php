@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Middleware\AuthLogin;
+use App\Http\Middleware\IfAlreadyLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('customer.index');
+})->name('index');
+Route::group(['prefix' => 'auth', 'as' => 'auth.', 'middleware' => [IfAlreadyLogin::class]], static function() {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/google/redirect', [AuthController::class, 'redirect'])->name('redirect');
+    Route::get('/google/callback', [AuthController::class, 'callback'])->name('callback');
+});
+Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+Route::group(['prefix' => 'app', 'middleware' => [AuthLogin::class]], static function () {
+    Route::group(['as' => ''], static function () {
+
+    });
+
 });
