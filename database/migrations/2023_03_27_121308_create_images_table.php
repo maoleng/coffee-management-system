@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->text('source');
-            $table->float('size');
             $table->uuid('product_id');
             $table->foreign('product_id')->references('id')->on('products');
         });

@@ -7,7 +7,7 @@ class Image extends Base
     public $timestamps = false;
 
     protected $fillable = [
-        'source', 'size', 'product_id',
+        'source', 'product_id',
     ];
 
 }

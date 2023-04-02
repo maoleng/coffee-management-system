@@ -116,7 +116,6 @@ class DatabaseSeeder extends Seeder
             for ($i = 1; $i <= $count; $i++) {
                 Image::query()->create([
                     'source' => $faker->imageUrl(1200, 1200),
-                    'size' => random_int(10000, 100000),
                     'product_id' => $product->id,
                 ]);
             }
