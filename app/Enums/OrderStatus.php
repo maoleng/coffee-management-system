@@ -10,5 +10,6 @@ final class OrderStatus extends Enum
     public const DELIVER = 1;
     public const PAY_ONLINE = 2;
     public const CANCEL = 3;
+    public const DESTROY = 4;
 
 }

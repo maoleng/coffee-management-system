@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Middleware\AuthAdmin;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\IfAlreadyLogin;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,5 +37,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/create', [ProductController::class, 'create'])->name('create');
         Route::post('/store', [ProductController::class, 'store'])->name('store');
         Route::get('/import', [ProductController::class, 'import'])->name('import');
+        Route::post('/process_import', [ProductController::class, 'processImport'])->name('process_import');
     });
 });
