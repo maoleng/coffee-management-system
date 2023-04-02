@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading dark-layout" lang="en" data-textdirection="ltr">
 @include('admin-theme.meta_tag')
 <body class="vertical-layout vertical-menu-modern navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
 @include('admin-theme.header') @include('admin-theme.menu')
@@ -11,7 +11,7 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Layout Blank</h2>
+                        <h2 class="content-header-title float-start mb-0">@yield('title')</h2>
                     </div>
                 </div>
             </div>

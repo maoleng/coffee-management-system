@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Middleware\AuthAdmin;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\IfAlreadyLogin;
@@ -30,4 +31,7 @@ Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin::class]], static function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 
+    Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], static function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+    });
 });
