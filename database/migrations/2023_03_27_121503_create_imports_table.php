@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('imports', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->float('total');
+            $table->double('total');
             $table->uuid('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->uuid('supplier_id');

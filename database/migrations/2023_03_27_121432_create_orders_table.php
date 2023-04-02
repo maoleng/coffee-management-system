@@ -15,11 +15,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->boolean('status');
-            $table->float('total');
+            $table->double('total');
             $table->uuid('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->uuid('promotion_id')->nullable();
