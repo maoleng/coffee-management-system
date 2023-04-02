@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->text('description');
-            $table->json('information');
             $table->integer('expire_month');
             $table->uuid('category_id');
             $table->foreign('category_id')->references('id')->on('categories');

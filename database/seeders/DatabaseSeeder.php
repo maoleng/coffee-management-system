@@ -99,7 +99,6 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->name,
                 'price' => $faker->numberBetween(50000, 100000),
                 'description' => $faker->text,
-                'information' => [],
                 'expire_month' => $faker->numberBetween(12, 24),
                 'category_id' => $faker->randomElement($category_ids),
             ]);
