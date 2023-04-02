@@ -38,5 +38,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::post('/store', [ProductController::class, 'store'])->name('store');
         Route::get('/import', [ProductController::class, 'import'])->name('import');
         Route::post('/process_import', [ProductController::class, 'processImport'])->name('process_import');
+        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
+        Route::put('/update/{product}', [ProductController::class, 'update'])->name('update');
+        Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
     });
 });

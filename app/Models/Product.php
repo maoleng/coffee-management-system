@@ -6,9 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Base
 {
+    use SoftDeletes;
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -69,5 +72,10 @@ class Product extends Base
             'amount' => $collect - $spend,
             'date' => $date_left . ' days',
         ];
+    }
+
+    public function getPrettyPriceAttribute(): string
+    {
+        return number_format($this->price, 0, '', ',');
     }
 }

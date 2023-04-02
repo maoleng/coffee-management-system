@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
-use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Import;
@@ -45,6 +45,51 @@ class ProductController extends Controller
             'products' => $products,
             'suppliers' => $suppliers,
         ]);
+    }
+
+    public function edit(Product $product): View
+    {
+        $categories = Category::query()->get();
+
+        return view('admin.product.edit', [
+            'product' => $product,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function update(ProductRequest $request, Product $product): RedirectResponse
+    {
+        $data = $request->validated();
+        $product->update([
+            'name' => $data['name'],
+            'price' => $data['price'],
+            'description' => $data['description'],
+            'expire_month' => $data['expire_month'],
+            'category_id' => $data['category_id'],
+        ]);
+
+        if (isset($data['images'])) {
+            $folder = "products/$product->id";
+            Storage::disk('public')->delete($folder);
+            Image::query()->where('id', $product->id)->delete();
+            foreach ($data['images'] as $i => $image) {
+                $path = "$folder/$i.{$image->getClientOriginalExtension()}";
+                Storage::disk('public')->put($path, $image->getContent());
+                Image::query()->create([
+                    'source' => $path,
+                    'product_id' => $product->id,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.warehouse.index');
+    }
+
+    public function destroy(Product $product): RedirectResponse
+    {
+        $product->delete();
+
+        return redirect()->route('admin.warehouse.index');
     }
 
     public function processImport(Request $request): RedirectResponse
@@ -100,7 +145,7 @@ class ProductController extends Controller
         $order->orderProducts()->sync($sync);
     }
 
-    public function store(StoreRequest $request): RedirectResponse
+    public function store(ProductRequest $request): RedirectResponse
     {
         $data = $request->validated();
         $product = Product::query()->create([
@@ -111,8 +156,9 @@ class ProductController extends Controller
             'category_id' => $data['category_id'],
         ]);
 
+        $folder = "products/$product->id";
         foreach ($data['images'] as $i => $image) {
-            $path = "products/$i.{$image->getClientOriginalExtension()}";
+            $path = "$folder/$i.{$image->getClientOriginalExtension()}";
             Storage::disk('public')->put($path, $image->getContent());
             Image::query()->create([
                 'source' => $path,

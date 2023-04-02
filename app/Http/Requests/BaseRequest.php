@@ -14,13 +14,11 @@ abstract class BaseRequest extends FormRequest
         return true;
     }
 
-    protected function failedValidation(Validator $validator): void
+    protected function failedValidation(Validator $validator)
     {
-        $response = new Response([
-            'status' => false,
-            'message' => $validator->errors()->first(),
-        ], 200);
-        throw new ValidationException($validator, $response);
+        session()->flash('error', $validator->errors()->first());
+
+        return redirect()->back();
     }
 
     public function messages(): array

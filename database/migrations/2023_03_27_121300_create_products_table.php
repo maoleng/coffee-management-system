@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('expire_month');
             $table->uuid('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->softDeletes();
         });
     }
 
