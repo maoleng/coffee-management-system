@@ -12,6 +12,7 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
+    @yield('vendor_style')
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -25,6 +26,7 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
+    @yield('page_style')
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->

@@ -3,6 +3,7 @@
 <!-- BEGIN Vendor JS-->
 
 <!-- BEGIN: Page Vendor JS-->
+@yield('page_vendor_script')
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Theme JS-->
@@ -11,6 +12,7 @@
 <!-- END: Theme JS-->
 
 <!-- BEGIN: Page JS-->
+@yield('page_script')
 <!-- END: Page JS-->
 
 <script>

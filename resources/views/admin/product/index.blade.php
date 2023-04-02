@@ -6,24 +6,22 @@
 
 @section('content')
     <div class="row" id="basic-table">
-
         <div class="col-12">
-
             <div class="card">
                 <div class="row d-flex justify-content-between align-items-center m-1">
                     <div class="col-lg-6 d-flex align-items-start">
                         <div class="dt-action-buttons text-xl-end text-lg-start text-lg-end text-start ">
                             <div class="dt-buttons">
-                                <button class="dt-button btn btn-primary btn-add-record ms-2" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                                <a href="{{ route('admin.warehouse.create') }}" class="dt-button btn btn-primary btn-add-record ms-2" tabindex="0" aria-controls="DataTables_Table_0" type="button">
                                     <span>Add Product</span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div class="dt-action-buttons text-xl-end text-lg-start text-lg-end text-start ">
                             <div class="dt-buttons">
-                                <button class="dt-button btn btn-success btn-add-record ms-2" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                                <a href="{{ route('admin.warehouse.import') }}" class="dt-button btn btn-success btn-add-record ms-2" tabindex="0" aria-controls="DataTables_Table_0" type="button">
                                     <span>Import Record</span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -51,7 +49,7 @@
                             <tr>
                                 <td>
                                     <div data-bs-original-title="{{ $product->name }}" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xl pull-up my-0" title="">
-                                        <img src="https://htmldemo.net/kofi/kofi/assets/images/products/single/single-product-thumb-1.jpg" alt="Avatar" height="26" width="26">
+                                        <img src="{{ asset($product->images[0]->path ?? null) }}" alt="Avatar" height="26" width="26">
                                     </div>
                                     <span class="fw-bold">{{ $product->name }}</span>
                                 </td>

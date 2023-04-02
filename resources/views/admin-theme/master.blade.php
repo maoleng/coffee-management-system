@@ -12,6 +12,11 @@
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
                         <h2 class="content-header-title float-start mb-0">@yield('title')</h2>
+                        <div class="breadcrumb-wrapper">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active">@yield('breadcrumb')</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>

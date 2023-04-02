@@ -10,4 +10,8 @@ class Image extends Base
         'source', 'product_id',
     ];
 
+    public function getPathAttribute()
+    {
+        return str_starts_with($this->source, 'http') ? $this->source : "storage/$this->source";
+    }
 }
