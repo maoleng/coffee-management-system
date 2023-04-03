@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -51,6 +52,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/edit/{promotion}', [PromotionController::class, 'edit'])->name('edit');
         Route::put('/update/{promotion}', [PromotionController::class, 'update'])->name('update');
         Route::delete('/destroy/{promotion}', [PromotionController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'hrm', 'as' => 'hrm.'], static function () {
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::post('/store', [AdminController::class, 'store'])->name('store');
+        Route::put('/cancel/{admin}', [AdminController::class, 'cancel'])->name('cancel');
     });
 
 

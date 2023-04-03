@@ -5,8 +5,13 @@ namespace App\Enums;
 use BenSampo\Enum\Attributes\Description;
 use BenSampo\Enum\Enum;
 
-final class AdminRole extends Enum
+final class AdminRole extends BaseEnum
 {
-    #[Description('Quản lý')]
+    #[Description('Admin')]
     public const ADMIN = 0;
+
+    #[Description('Product & warehouse')]
+    public const PRODUCT_WAREHOUSE = 1;
+
+
 }
