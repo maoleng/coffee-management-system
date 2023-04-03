@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Middleware\AuthAdmin;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\IfAlreadyLogin;
@@ -42,4 +43,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::put('/update/{product}', [ProductController::class, 'update'])->name('update');
         Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
     });
+
+    Route::group(['prefix' => 'promotion', 'as' => 'promotion.'], static function () {
+        Route::get('/', [PromotionController::class, 'index'])->name('index');
+        Route::get('/create', [PromotionController::class, 'create'])->name('create');
+        Route::post('/store', [PromotionController::class, 'store'])->name('store');
+        Route::get('/edit/{promotion}', [PromotionController::class, 'edit'])->name('edit');
+        Route::put('/update/{promotion}', [PromotionController::class, 'update'])->name('update');
+        Route::delete('/destroy/{promotion}', [PromotionController::class, 'destroy'])->name('destroy');
+    });
+
+
 });
