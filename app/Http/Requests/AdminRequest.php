@@ -10,6 +10,7 @@ class AdminRequest extends BaseRequest
         return [
             'email' => [
                 'required',
+                'email',
             ],
             'role' => [
                 'required',

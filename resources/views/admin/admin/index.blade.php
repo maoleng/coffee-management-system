@@ -46,6 +46,11 @@
                                         <div class="dropdown-divider"></div>
                                     </div>
                                 </div>
+                                <div class="btn-group dropup">
+                                    @if (session()->get('error') !== null)
+                                        {{ session()->get('error') }}
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

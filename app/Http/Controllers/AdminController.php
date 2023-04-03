@@ -34,7 +34,7 @@ class AdminController extends Controller
 
     public function store(AdminRequest $request): RedirectResponse
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         Admin::query()->create([
             'name' => '',
