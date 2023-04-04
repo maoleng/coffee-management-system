@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromotionController;
@@ -58,6 +59,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::post('/store', [AdminController::class, 'store'])->name('store');
         Route::put('/cancel/{admin}', [AdminController::class, 'cancel'])->name('cancel');
+    });
+
+    Route::group(['prefix' => 'customer', 'as' => 'customer.'], static function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/show', [UserController::class, 'show'])->name('show');
     });
 
 
