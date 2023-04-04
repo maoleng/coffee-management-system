@@ -9,7 +9,7 @@ class Order extends Base
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id', 'name', 'address', 'phone', 'status', 'total', 'admin_id', 'promotion_id', 'ordered_at',
+        'user_id', 'name', 'address', 'phone', 'status', 'is_paid', 'total', 'admin_id', 'promotion_id', 'ordered_at',
     ];
 
     public function orderProducts(): BelongsToMany

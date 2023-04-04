@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->boolean('status');
+            $table->integer('status');
+            $table->boolean('is_paid')->default(0);
             $table->double('total');
             $table->uuid('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins');
