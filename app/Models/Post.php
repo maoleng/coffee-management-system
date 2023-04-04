@@ -2,12 +2,31 @@
 
 namespace App\Models;
 
+use App\Enums\PostCategory;
+use Illuminate\Support\Str;
+
 class Post extends Base
 {
     public $timestamps = false;
 
     protected $fillable = [
-        'title', 'content', 'category', 'admin_id', 'created_at',
+        'title', 'content', 'banner', 'category', 'admin_id', 'created_at',
     ];
 
+    public function getLimitTitleAttribute(): string
+    {
+        return Str::limit($this->title, 40);
+    }
+
+    public function getRawContentAttribute(): string
+    {
+        $raw = preg_replace('/<.*>/U', '', $this->content);
+
+        return Str::limit($raw);
+    }
+
+    public function getPrettyCategoryAttribute(): string
+    {
+        return PostCategory::getDescription($this->category);
+    }
 }

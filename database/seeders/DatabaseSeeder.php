@@ -5,11 +5,13 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Enums\AdminRole;
 use App\Enums\OrderStatus;
+use App\Enums\PostCategory;
 use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Import;
 use App\Models\Order;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\Supplier;
@@ -36,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->createOrders(25);
         $this->createSupports(25);
         $this->createPromotions(25);
+        $this->createPosts(25);
     }
 
 
@@ -172,6 +175,25 @@ class DatabaseSeeder extends Seeder
             ];
         }
         Support::query()->insert($data);
+    }
+
+    private function createPosts($count): void
+    {
+        $faker = Faker::create();
+        $admin_id = Admin::query()->first()->id;
+        $data = [];
+        for ($i = 1; $i <= $count; $i++) {
+            $data[] = [
+                'id' => Str::uuid(),
+                'title' => $faker->sentence(random_int(6, 10)),
+                'content' => $faker->randomHtml,
+                'banner' => $faker->imageUrl(750, 300),
+                'category' => PostCategory::getRandomValue(),
+                'admin_id' => $admin_id,
+                'created_at' => $faker->dateTime,
+            ];
+        }
+        Post::query()->insert($data);
     }
 
     private function createPromotions($count): void

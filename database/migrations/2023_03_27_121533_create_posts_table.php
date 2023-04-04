@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('title');
             $table->longText('content');
+            $table->text('banner');
             $table->integer('category');
             $table->uuid('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins');
