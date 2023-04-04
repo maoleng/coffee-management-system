@@ -11,10 +11,14 @@ use App\Models\Image;
 use App\Models\Import;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Promotion;
 use App\Models\Supplier;
+use App\Models\Support;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,9 +33,11 @@ class DatabaseSeeder extends Seeder
         $this->createProducts(50);
         $this->createImages();
         $this->createImports();
-        $this->createOrders(10);
-
+        $this->createOrders(25);
+        $this->createSupports(25);
+        $this->createPromotions(25);
     }
+
 
     private function createOrders($count): void
     {
@@ -49,17 +55,19 @@ class DatabaseSeeder extends Seeder
 
             $total = 0;
             $products = Product::query()->get();
+            $data = [];
             foreach ($products as $product) {
                 $amount = $faker->numberBetween(1, 5);
                 $total += $product->price * $amount;
-                DB::table('order_products')->insert([
+                $data[] = [
                     'order_id' => $order->id,
                     'product_id' => $product->id,
                     'name' => $product->name,
                     'amount' => $amount,
                     'price' => $product->price,
-                ]);
+                ];
             }
+            DB::table('order_products')->insert($data);
             $order->update(['total' => $total]);
         }
     }
@@ -76,17 +84,19 @@ class DatabaseSeeder extends Seeder
 
         $total = 0;
         $products = Product::query()->get();
+        $data = [];
         foreach ($products as $product) {
             $price = (int) ($product->price - ($product->price / random_int(1, 10)));
             $amount = $faker->numberBetween(50, 200);
             $total += $price * $amount;
-            DB::table('import_products')->insert([
+            $data[] = [
                 'import_id' => $import->id,
                 'product_id' => $product->id,
                 'amount' => $amount,
                 'price' => $price,
-            ]);
+            ];
         }
+        DB::table('import_products')->insert($data);
         $import->update(['total' => $total]);
     }
 
@@ -94,16 +104,18 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create();
         $category_ids = Category::query()->inRandomOrder()->get()->pluck('id')->toArray();
+        $data = [];
         for ($i = 1; $i <= $count; $i++) {
-            Product::query()->create([
+            $data[] = [
+                'id' => Str::uuid(),
                 'name' => $faker->name,
                 'price' => $faker->numberBetween(50000, 100000),
                 'description' => $faker->text,
                 'expire_month' => $faker->numberBetween(12, 24),
                 'category_id' => $faker->randomElement($category_ids),
-            ]);
+            ];
         }
-
+        Product::query()->insert($data);
     }
 
     private function createImages(): void
@@ -111,39 +123,89 @@ class DatabaseSeeder extends Seeder
         $faker = Faker::create();
 
         $products = Product::query()->get();
+        $data = [];
         foreach ($products as $product) {
             $count = random_int(2, 4);
             for ($i = 1; $i <= $count; $i++) {
-                Image::query()->create([
+                $data[] = [
+                    'id' => Str::uuid(),
                     'source' => $faker->imageUrl(1200, 1200),
                     'product_id' => $product->id,
-                ]);
+                ];
             }
         }
+        Image::query()->insert($data);
     }
 
     private function createSuppliers($count): void
     {
         $faker = Faker::create();
 
+        $data = [];
         for ($i = 1; $i <= $count; $i++) {
-            Supplier::query()->create([
+            $data[] = [
+                'id' => Str::uuid(),
                 'name' => $faker->name,
                 'address' => $faker->address,
                 'phone' => $faker->phoneNumber,
-            ]);
+            ];
         }
+        Supplier::query()->insert($data);
+    }
+
+    private function createSupports($count): void
+    {
+        $faker = Faker::create();
+        $admin_id = Admin::query()->first()->id;
+        $data = [];
+        for ($i = 1; $i <= $count; $i++) {
+            $is_response = (bool) random_int(0, 2);
+            $data[] = [
+                'id' => Str::uuid(),
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'content' => $faker->text,
+                'response' => $is_response ? $faker->text : null,
+                'status' => $is_response,
+                'admin_id' => $is_response ? $admin_id : null,
+                'created_at' => $faker->dateTime,
+            ];
+        }
+        Support::query()->insert($data);
+    }
+
+    private function createPromotions($count): void
+    {
+        $faker = Faker::create();
+        $data = [];
+        for ($i = 1; $i <= $count; $i++) {
+            $created_at = $faker->dateTime;
+            $data[] = [
+                'id' => Str::uuid(),
+                'name' => $faker->name,
+                'description' => $faker->text,
+                'code' => strtoupper(Str::random(10)),
+                'percent' => random_int(5, 50),
+                'active' => (bool) random_int(0, 1),
+                'created_at' => $created_at,
+                'expired_at' => Carbon::make($created_at)->addDays(random_int(3, 30)),
+            ];
+        }
+        Promotion::query()->insert($data);
     }
 
     private function createCategories($count): void
     {
         $faker = Faker::create();
 
+        $data = [];
         for ($i = 1; $i <= $count; $i++) {
-            Category::query()->create([
+            $data[] = [
+                'id' => Str::uuid(),
                 'name' => $faker->name,
-            ]);
+            ];
         }
+        Category::query()->insert($data);
     }
 
     private function createDefault(): void

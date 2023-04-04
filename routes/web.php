@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -64,6 +65,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
     Route::group(['prefix' => 'customer', 'as' => 'customer.'], static function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/show', [UserController::class, 'show'])->name('show');
+    });
+
+    Route::group(['prefix' => 'customer-care', 'as' => 'customer-care.'], static function () {
+        Route::get('/', [SupportController::class, 'index'])->name('index');
+        Route::post('/{support}', [SupportController::class, 'response'])->name('response');
+        Route::put('/filter/{support}', [SupportController::class, 'filter'])->name('filter');
     });
 
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->text('content');
+            $table->text('response')->nullable();
             $table->integer('status');
             $table->uuid('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins');
