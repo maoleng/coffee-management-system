@@ -186,6 +186,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+        App\Providers\GoogleServiceProvider::class,
 
         /*
          * Application Service Providers...
