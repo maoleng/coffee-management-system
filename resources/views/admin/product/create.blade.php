@@ -16,7 +16,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start">
                         <div class="author-info">
-                            <h6 class="mb-25"></h6>
+                            <h6 class="mb-25">
+                                @if (session()->get('error') !== null)
+                                    {{ session()->get('error') }}
+                                @endif
+                            </h6>
                         </div>
                     </div>
                     <form action="{{ route('admin.warehouse.store') }}" method="post" enctype="multipart/form-data" class="mt-2">

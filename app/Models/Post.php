@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PostCategory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Post extends Base
@@ -12,6 +13,11 @@ class Post extends Base
     protected $fillable = [
         'title', 'content', 'banner', 'category', 'admin_id', 'created_at',
     ];
+
+    public function postTags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'post_tags');
+    }
 
     public function getLimitTitleAttribute(): string
     {

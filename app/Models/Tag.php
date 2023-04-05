@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 class Tag extends Base
 {
     public $timestamps = false;
@@ -10,4 +12,8 @@ class Tag extends Base
         'name',
     ];
 
+    public function postTags(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'post_tags');
+    }
 }

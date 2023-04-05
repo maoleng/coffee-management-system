@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -71,6 +72,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/', [SupportController::class, 'index'])->name('index');
         Route::post('/{support}', [SupportController::class, 'response'])->name('response');
         Route::put('/filter/{support}', [SupportController::class, 'filter'])->name('filter');
+    });
+
+    Route::group(['prefix' => 'post', 'as' => 'post.'], static function () {
+        Route::get('/', [PostController::class, 'index'])->name('index');
+        Route::get('/create', [PostController::class, 'create'])->name('create');
+        Route::post('/store', [PostController::class, 'store'])->name('store');
+        Route::get('/edit/{post}', [PostController::class, 'edit'])->name('edit');
+        Route::put('/update/{post}', [PostController::class, 'update'])->name('update');
+        Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
     });
 
 
