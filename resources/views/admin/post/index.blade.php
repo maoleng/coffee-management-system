@@ -40,7 +40,7 @@
                                 <form class="float-end" action="{{ route('admin.post.destroy', ['post' => $post]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-outline-danger waves-effect">Delete</button>
+                                    <button class="btn btn-outline-danger waves-effect">Delete</button>
                                 </form>
                             </div>
                         </div>

@@ -103,6 +103,14 @@ class PostController extends Controller
         return redirect()->route('admin.post.index');
     }
 
+    public function destroy(Post $post): RedirectResponse
+    {
+        $post->postTags()->sync([]);
+        $post->delete();
+
+        return redirect()->back();
+    }
+
     private function handleTags($input_tags, Post $post): void
     {
         $tags = Tag::query()->whereIn('name', $input_tags)->get();
