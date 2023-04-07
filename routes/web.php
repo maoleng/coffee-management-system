@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
@@ -81,6 +82,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/edit/{post}', [PostController::class, 'edit'])->name('edit');
         Route::put('/update/{post}', [PostController::class, 'update'])->name('update');
         Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'order', 'as' => 'order.'], static function () {
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('/show', [OrderController::class, 'show'])->name('show');
+        Route::get('/print', [OrderController::class, 'print'])->name('print');
+        Route::put('/update', [OrderController::class, 'update'])->name('update');
     });
 
 

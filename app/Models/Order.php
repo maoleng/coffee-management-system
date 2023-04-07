@@ -37,9 +37,19 @@ class Order extends Base
         return $this->belongsTo(Promotion::class);
     }
 
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
     public function getPrettyTotalAttribute(): string
     {
         return number_format($this->total, 0, '', ',');
+    }
+
+    public function getPrettyIsPaidAttribute(): string
+    {
+        return $this->is_paid === true ? 'Paid' : 'Not paid yet';
     }
 
     public function getStatusDescriptionAttribute(): string
@@ -52,7 +62,7 @@ class Order extends Base
         return match ($this->status) {
             OrderStatus::UNPROCESSED => 'primary',
             OrderStatus::DELIVERING => 'info',
-            OrderStatus::CANCELLED => 'dark disabled',
+            OrderStatus::CANCELLED, OrderStatus::DESTROY => 'dark disabled',
             OrderStatus::DECLINE => 'danger disabled',
             OrderStatus::SUCCESSFUL => 'success disabled',
         };

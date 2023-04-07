@@ -21,3 +21,10 @@ if (!function_exists('authed')) {
         return c(JWT::class)->match($token);
     }
 }
+
+if (!function_exists('prettyPrice')) {
+    function prettyPrice($price): string
+    {
+        return number_format($price, 0, '', ',');
+    }
+}

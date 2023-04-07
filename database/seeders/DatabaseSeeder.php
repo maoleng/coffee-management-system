@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $total = 0;
-            $products = Product::query()->get();
+            $products = Product::query()->get()->take(random_int(1, 5));
             $data = [];
             foreach ($products as $product) {
                 $amount = $faker->numberBetween(1, 5);
