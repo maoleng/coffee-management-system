@@ -17,9 +17,11 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('name')->nullable();
             $table->string('address')->nullable();
+            $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->integer('status');
             $table->boolean('is_paid')->default(0);
+            $table->boolean('is_sent_bill')->default(0);
             $table->double('total');
             $table->uuid('admin_id')->nullable();
             $table->foreign('admin_id')->references('id')->on('admins');
