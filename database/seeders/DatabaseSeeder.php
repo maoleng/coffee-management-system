@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->name,
                 'address' => $faker->address,
                 'phone' => $faker->phoneNumber,
+                'email' => $faker->email,
                 'status' => OrderStatus::getRandomValue(),
                 'total' => 0,
                 'ordered_at' => now(),
