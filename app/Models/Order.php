@@ -11,7 +11,11 @@ class Order extends Base
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id', 'name', 'address', 'email', 'phone', 'status', 'is_paid', 'total', 'admin_id', 'promotion_id', 'ordered_at',
+        'user_id', 'name', 'address', 'email', 'phone', 'status', 'is_paid', 'ship_fee', 'total', 'admin_id', 'promotion_id', 'ordered_at',
+    ];
+
+    protected $casts = [
+        'is_paid' => 'boolean',
     ];
 
     public function orderProducts(): BelongsToMany
