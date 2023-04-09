@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -89,6 +90,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/show', [OrderController::class, 'show'])->name('show');
         Route::get('/print', [OrderController::class, 'print'])->name('print');
         Route::put('/update', [OrderController::class, 'update'])->name('update');
+    });
+
+    Route::group(['prefix' => 'statistic', 'as' => 'statistic.'], function () {
+        Route::get('/revenue', [StatisticController::class, 'revenue'])->name('revenue');
+        Route::get('/product', [StatisticController::class, 'product'])->name('product');
+        Route::get('/customer', [StatisticController::class, 'customer'])->name('customer');
+        Route::get('/get_revenue', [StatisticController::class, 'getRevenue'])->name('get_revenue');
+
+
     });
 
 
