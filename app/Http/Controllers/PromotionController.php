@@ -21,9 +21,24 @@ use Illuminate\Support\Facades\Storage;
 class PromotionController extends Controller
 {
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $promotions = Promotion::query()->orderByDesc('active')->orderByDesc('created_at')->paginate(10);
+        $data = $request->all();
+        $builder = Promotion::query();
+        if (isset($data['active'])) {
+            $builder->where('active', $data['active']);
+        }
+        if (isset($data['q'])) {
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('name', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('description', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('code', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('percent', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('created_at', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('expired_at', 'LIKE', "%{$data['q']}%");
+            });
+        }
+        $promotions = $builder->orderByDesc('active')->orderByDesc('created_at')->paginate(10);
 
         return view('admin.promotion.index', [
             'promotions' => $promotions,

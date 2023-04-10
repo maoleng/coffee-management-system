@@ -18,6 +18,6 @@ class Promotion extends Base
     {
         return $this->active === true ?
             '<span class="badge rounded-pill badge-light-primary me-1">Active</span>' :
-            '<span class="badge rounded-pill badge-light-secondary me-1">Expired</span>';
+            '<span class="badge rounded-pill badge-light-secondary me-1">Inactive</span>';
     }
 }
