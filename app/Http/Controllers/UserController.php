@@ -16,9 +16,18 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = User::query()->orderByDesc('created_at')->paginate(10);
+        $data = $request->all();
+        $builder = User::query();
+        if (isset($data['q'])) {
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('name', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('email', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('created_at', 'LIKE', "%{$data['q']}%");
+            });
+        }
+        $users = $builder->orderByDesc('created_at')->paginate(10);
 
         return view('admin.user.index', [
             'users' => $users,

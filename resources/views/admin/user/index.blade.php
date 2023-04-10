@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
                         <div>
-                            <input type="search" class="form-control" placeholder="Search Invoice" aria-controls="DataTables_Table_0">
+                            <input type="search" id="i-search" name="q" value="{{ request()->get('q') }}" class="form-control" placeholder="Search">
                         </div>
                         <div class="invoice_status ms-sm-2"></div>
                     </div>
@@ -110,6 +110,7 @@
 
 @section('page_script')
     <script src="{{ asset('app-assets/js/scripts/components/components-dropdowns.js') }}"></script>
+    <script src="{{ asset('assets/js/handle_search.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.btn-show').on('click', function() {
