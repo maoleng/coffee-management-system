@@ -3,9 +3,8 @@
 namespace App\Enums;
 
 use BenSampo\Enum\Attributes\Description;
-use BenSampo\Enum\Enum;
 
-final class OrderStatus extends Enum
+final class OrderStatus extends BaseEnum
 {
     #[Description('Unprocessed')]
     public const UNPROCESSED = 0;

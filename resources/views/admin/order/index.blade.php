@@ -26,8 +26,19 @@
 {{--                        </div>--}}
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
+                        <div class="btn-group" style="padding-right: 25px">
+                            <button type="button" class="btn btn-outline-primary dropdown-toggle waves-effect" data-bs-toggle="dropdown" aria-expanded="false">
+                                @php ($status = request()->get('status'))
+                                {{ $status === null ? 'All' : $order_status[$status] }}
+                            </button>
+                            <div class="dropdown-menu">
+                                @foreach ($order_status as $key => $each)
+                                    <a class="dropdown-item" href="?status={{ $key }}">{{ $each }}</a>
+                                @endforeach
+                            </div>
+                        </div>
                         <div>
-                            <input type="search" class="form-control" placeholder="Search Invoice" aria-controls="DataTables_Table_0">
+                            <input type="search" id="i-search" name="q" class="form-control" placeholder="Search Invoice" aria-controls="DataTables_Table_0">
                         </div>
                         <div class="invoice_status ms-sm-2"></div>
                     </div>
@@ -182,7 +193,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="m-3">{{ $orders->links('vendor.pagination') }}</div>
+                <div class="m-3">{{ $orders->withQueryString()->links('vendor.pagination') }}</div>
             </div>
         </div>
     </div>
@@ -328,6 +339,39 @@
     <script src="{{ asset('app-assets/js/scripts/components/components-modals.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $('#i-search').on('keypress',function(e) {
+                if(e.which === 13) {
+                    let url = window.location.href.split('?')[0];
+                    const urlSearchParams = new URLSearchParams(window.location.search);
+                    const params = Object.fromEntries(urlSearchParams.entries());
+                    const q = $(this).val()
+                    const param_names = Object.keys(params)
+
+                    if (params.q !== undefined) {
+                        let query_string = ''
+                        let first = true
+                        if (param_names.length > 0) {
+                            param_names.forEach(function (name) {
+                                if (name !== 'q') {
+                                    query_string += first ? '?' : '&'
+                                    query_string += `${name}=${params[name]}`
+                                    first = false
+                                }
+                            })
+                            query_string += query_string === '' ? `?q=${q}` : `&q=${q}`
+                        } else {
+                            query_string += `?q=${q}`
+                        }
+                        window.location.href = url + query_string
+
+                        return
+                    }
+                    const link_char = param_names.length > 0 ? '&' : '?'
+                    window.location.href = window.location.href + link_char + "q=" + q
+                }
+            });
+
+
             $('.i-is_paid').on('click', updateIsPaid)
             $('.i-status').on('click', updateStatus)
             $('#btn-print').on('click', function () {

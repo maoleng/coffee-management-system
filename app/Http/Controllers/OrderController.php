@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -9,14 +10,30 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $orders = Order::query()
-            ->with(['user', 'promotion'])
-            ->orderBy('status')->orderByDesc('ordered_at')->paginate(10);
+        $data = $request->all();
+
+        $builder = Order::query();
+        if (isset($data['status'])) {
+            $builder->where('status', $data['status']);
+        }
+        if (isset($data['q'])) {
+            $builder->where('name', 'LIKE', "%{$data['q']}%")
+                ->orWhere('address', 'LIKE', "%{$data['q']}%")
+                ->orWhere('email', 'LIKE', "%{$data['q']}%")
+                ->orWhere('phone', 'LIKE', "%{$data['q']}%")
+                ->orWhere('ship_fee', 'LIKE', "%{$data['q']}%")
+                ->orWhere('total', 'LIKE', "%{$data['q']}%")
+                ->orWhere('ordered_at', 'LIKE', "%{$data['q']}%");
+        }
+
+        $orders = $builder->with(['user', 'promotion'])
+            ->orderBy('status')->orderByDesc('ordered_at')->paginate(5);
 
         return view('admin.order.index', [
             'orders' => $orders,
+            'order_status' => OrderStatus::getDescriptions(),
         ]);
     }
 
@@ -30,6 +47,9 @@ class OrderController extends Controller
             $update_data['is_paid'] = (bool) $data['is_paid'];
         }
         if (isset($data['status'])) {
+            if ((int) $data['status'] === OrderStatus::SUCCESSFUL) {
+                $update_data['is_paid'] = true;
+            }
             $update_data['status'] = (int) $data['status'];
         }
         Order::query()->where('id', $order_id)->update($update_data);
