@@ -6,13 +6,23 @@ use App\Http\Requests\SupplierRequest;
 use App\Models\Supplier;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $suppliers = Supplier::query()->paginate(10);
+        $data = $request->all();
+        $builder = Supplier::query();
+        if (isset($data['q'])) {
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('name', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('address', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('phone', 'LIKE', "%{$data['q']}%");
+            });
+        }
+        $suppliers = $builder->paginate(10);
 
         return view('admin.supplier.index', [
             'suppliers' => $suppliers,
