@@ -18,6 +18,18 @@
                     </div>
                 </div>
                 <div class="col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
+                    <div class="btn-group" style="padding-right: 25px">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle waves-effect" data-bs-toggle="dropdown" aria-expanded="false">
+                            @php ($category = request()->get('category'))
+                            {{ $category === null ? 'All' : $categories[$category] }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="?category=">All</a>
+                            @foreach ($categories as $key => $category)
+                                <a class="dropdown-item" href="?category={{ $key }}">{{ $category }}</a>
+                            @endforeach
+                        </div>
+                    </div>
                     <div>
                         <input type="search" id="i-search" name="q" value="{{ request()->get('q') }}" class="form-control" placeholder="Search">
                     </div>

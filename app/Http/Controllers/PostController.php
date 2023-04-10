@@ -31,15 +31,21 @@ class PostController extends Controller
     {
         $data = $request->all();
         $builder = Post::query();
+        if (isset($data['category'])) {
+            $builder->where('category', $data['category']);
+        }
         if (isset($data['q'])) {
-            $builder->where('title', 'LIKE', "%{$data['q']}%")
-                ->orWhere('category', 'LIKE', "%{$data['q']}%")
-                ->orWhere('created_at', 'LIKE', "%{$data['q']}%");
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('title', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('category', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('created_at', 'LIKE', "%{$data['q']}%");
+            });
         }
         $posts = $builder->orderByDesc('created_at')->paginate(12);
 
         return view('admin.post.index', [
             'posts' => $posts,
+            'categories' => PostCategory::getDescriptions(),
         ]);
     }
 
