@@ -87,7 +87,6 @@
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{ route('admin.statistic.revenue') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Revenue">Revenue</span></a></li>
                     <li><a class="d-flex align-items-center" href="{{ route('admin.statistic.product') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Product">Product</span></a></li>
-                    <li><a class="d-flex align-items-center" href="{{ route('admin.statistic.customer') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Potential customers">Customer</span></a></li>
                 </ul>
             </li>
         </ul>
