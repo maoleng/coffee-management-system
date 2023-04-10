@@ -38,7 +38,9 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.', 'middleware' => [IfAlreadyLog
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin::class]], static function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/', static function () {
+        return redirect()->route('admin.order.index');
+    })->name('index');
 
     Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], static function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
