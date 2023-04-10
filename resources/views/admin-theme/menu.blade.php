@@ -52,7 +52,7 @@
                 </a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{ route('admin.warehouse.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Warehouse">Warehouse</span></a></li>
-                    <li><a class="d-flex align-items-center" href="app-invoice-list.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Suppliers">Suppliers</span></a></li>
+                    <li><a class="d-flex align-items-center" href="{{ route('admin.supplier.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Suppliers">Suppliers</span></a></li>
                 </ul>
             </li>
             <li class="nav-item">

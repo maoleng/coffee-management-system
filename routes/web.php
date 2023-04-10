@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\StatisticController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -48,6 +49,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('edit');
         Route::put('/update/{product}', [ProductController::class, 'update'])->name('update');
         Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'supplier', 'as' => 'supplier.'], static function () {
+        Route::get('/', [SupplierController::class, 'index'])->name('index');
+        Route::get('/create', [SupplierController::class, 'create'])->name('create');
+        Route::post('/store', [SupplierController::class, 'store'])->name('store');
+        Route::get('/edit/{supplier}', [SupplierController::class, 'edit'])->name('edit');
+        Route::put('/update/{supplier}', [SupplierController::class, 'update'])->name('update');
+        Route::delete('/destroy/{supplier}', [SupplierController::class, 'destroy'])->name('destroy');
     });
 
     Route::group(['prefix' => 'promotion', 'as' => 'promotion.'], static function () {
