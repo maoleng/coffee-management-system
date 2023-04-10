@@ -17,8 +17,20 @@
                         </div>
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
+                        <div class="btn-group" style="padding-right: 25px">
+                            <button type="button" class="btn btn-outline-primary dropdown-toggle waves-effect" data-bs-toggle="dropdown" aria-expanded="false">
+                                @php ($status = request()->get('status'))
+                                {{ $status === null ? 'All' : $support_status[$status] }}
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="?status=">All</a>
+                                @foreach ($support_status as $key => $each)
+                                    <a class="dropdown-item" href="?status={{ $key }}">{{ $each }}</a>
+                                @endforeach
+                            </div>
+                        </div>
                         <div>
-                            <input type="search" class="form-control" placeholder="Search Invoice" aria-controls="DataTables_Table_0">
+                            <input type="search" id="i-search" name="q" value="{{ request()->get('q') }}" class="form-control" placeholder="Search">
                         </div>
                         <div class="invoice_status ms-sm-2"></div>
                     </div>
@@ -99,4 +111,8 @@
             </div>
         </div>
     @endforeach
+@endsection
+
+@section('page_script')
+    <script src="{{ asset('assets/js/handle_search.js') }}"></script>
 @endsection

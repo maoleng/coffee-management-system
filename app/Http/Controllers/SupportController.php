@@ -20,12 +20,27 @@ use Illuminate\Http\Request;
 class SupportController extends Controller
 {
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $supports = Support::query()->orderBy('status')->orderByDesc('created_at')->paginate(10);
+        $data = $request->all();
+        $builder = Support::query();
+        if (isset($data['status'])) {
+            $builder->where('status', $data['status']);
+        }
+        if (isset($data['q'])) {
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('name', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('email', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('content', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('response', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('created_at', 'LIKE', "%{$data['q']}%");
+            });
+        }
+        $supports = $builder->orderBy('status')->orderByDesc('created_at')->paginate(10);
 
         return view('admin.support.index', [
             'supports' => $supports,
+            'support_status' => SupportStatus::getDescriptions(),
         ]);
     }
 

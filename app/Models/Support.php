@@ -21,7 +21,7 @@ class Support extends Base
     public function getPrettyStatusAttribute(): string
     {
         return match ($this->status) {
-            SupportStatus::SUCCESSFUL => '<span class="badge rounded-pill badge-light-primary me-1">Closed</span>',
+            SupportStatus::SUCCESSFUL => '<span class="badge rounded-pill badge-light-primary me-1">Successful</span>',
             SupportStatus::UNPROCESSED => '<span class="badge rounded-pill badge-light-secondary me-1">Unprocessed</span>',
             SupportStatus::FILTERED => '<span class="badge rounded-pill badge-light-warning me-1">Filtered</span>',
         };
