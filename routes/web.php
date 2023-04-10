@@ -41,6 +41,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
     Route::get('/', static function () {
         return redirect()->route('admin.order.index');
     })->name('index');
+    Route::get('/toggle_dark_mode', function () {
+        session()->put('dark_mode', ! session()->get('dark_mode'));
+    })->name('toggle_dark_mode');
 
     Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], static function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');

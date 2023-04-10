@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading dark-layout" lang="en" data-textdirection="ltr">
+<html class="loading @if (session()->get('dark_mode')) dark-layout @endif" lang="en" data-textdirection="ltr">
 @include('admin-theme.meta_tag')
 <body class="vertical-layout vertical-menu-modern navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
 @include('admin-theme.header') @include('admin-theme.menu')

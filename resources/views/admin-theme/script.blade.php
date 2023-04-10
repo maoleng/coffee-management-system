@@ -24,4 +24,11 @@
             });
         }
     })
+    $(document).ready(function() {
+        $('#btn-dark_mode').on('click', function() {
+            $.ajax({
+                url: '{{ route('admin.toggle_dark_mode') }}',
+            })
+        })
+    })
 </script>
