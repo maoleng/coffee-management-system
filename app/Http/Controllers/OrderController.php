@@ -19,13 +19,15 @@ class OrderController extends Controller
             $builder->where('status', $data['status']);
         }
         if (isset($data['q'])) {
-            $builder->where('name', 'LIKE', "%{$data['q']}%")
-                ->orWhere('address', 'LIKE', "%{$data['q']}%")
-                ->orWhere('email', 'LIKE', "%{$data['q']}%")
-                ->orWhere('phone', 'LIKE', "%{$data['q']}%")
-                ->orWhere('ship_fee', 'LIKE', "%{$data['q']}%")
-                ->orWhere('total', 'LIKE', "%{$data['q']}%")
-                ->orWhere('ordered_at', 'LIKE', "%{$data['q']}%");
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('name', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('address', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('email', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('phone', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('ship_fee', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('total', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('ordered_at', 'LIKE', "%{$data['q']}%");
+            });
         }
 
         $orders = $builder->with(['user', 'promotion'])

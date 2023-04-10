@@ -18,12 +18,29 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $products = Product::query()->with('images')->orderBy('name')->paginate(10);
+        $data = $request->all();
+        $builder = Product::query();
+        if (isset($data['category'])) {
+            $builder->whereHas('category', function ($q) use ($data) {
+                $q->where('name', 'LIKE', "%{$data['category']}%");
+            });
+        }
+        if (isset($data['q'])) {
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('name', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('price', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('description', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('expire_month', 'LIKE', "%{$data['q']}%");
+            });
+        }
+        $products = $builder->with('images')->orderBy('name')->paginate(10);
+        $categories = Category::query()->get();
 
         return view('admin.product.index', [
             'products' => $products,
+            'categories' => $categories,
         ]);
     }
 

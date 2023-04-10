@@ -32,6 +32,7 @@
                                 {{ $status === null ? 'All' : $order_status[$status] }}
                             </button>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item" href="?status=">All</a>
                                 @foreach ($order_status as $key => $each)
                                     <a class="dropdown-item" href="?status={{ $key }}">{{ $each }}</a>
                                 @endforeach

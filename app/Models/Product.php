@@ -18,10 +18,6 @@ class Product extends Base
         'name', 'price', 'description', 'expire_month', 'category_id',
     ];
 
-    protected $casts = [
-        'information' => 'json'
-    ];
-
     protected $appends = [
         'left'
     ];
