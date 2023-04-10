@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Models\Category;
 use App\Models\Import;
 use App\Models\Order;
+use App\Models\Product;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatisticController extends Controller
 {
@@ -36,7 +39,14 @@ class StatisticController extends Controller
 
     public function product(): View
     {
-        return view('admin.statistic.product');
+        $total_order = Order::query()->count();
+        $month_order = Order::query()->where('ordered_at', '>', now()->subMonth())
+            ->where('ordered_at', '<', now())->count();
+
+        return view('admin.statistic.product', [
+            'total_order' => $total_order,
+            'month_order' => $month_order,
+        ]);
     }
 
     public function customer(): View
@@ -71,6 +81,37 @@ class StatisticController extends Controller
             'profit' => $profit,
             'max' => $max,
             'step' => $step,
+        ];
+    }
+
+    public function getChartProduct(Request $request): array
+    {
+        $range = $request->get('range');
+
+        $products = Product::query()->withCount(['orderProducts as sold' => function ($query) use ($range) {
+            $query->select(DB::raw('SUM(amount)'))
+                ->whereBetween('ordered_at', [$range[0], $range[1]]);
+        }])->get()->sortByDesc('sold');
+
+        $categories = Category::query()->get();
+        $by_category = [];
+        foreach ($categories as $category) {
+            $by_category[$category->name] = $products->where('category_id', $category->id)->sum('sold') ?? 0;
+        }
+
+        $limit = count($products->whereNotNull('sold'));
+        $top_product = $products->sortByDesc('sold')->take($limit)
+            ->pluck('sold', 'name')->toArray();
+
+        return [
+            'by_category' => [
+                'labels' => array_keys($by_category),
+                'data' => array_values($by_category),
+            ],
+            'top_product' => [
+                'labels' => array_keys($top_product),
+                'data' => array_values($top_product),
+            ],
         ];
     }
 

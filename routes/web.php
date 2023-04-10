@@ -97,6 +97,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::get('/product', [StatisticController::class, 'product'])->name('product');
         Route::get('/customer', [StatisticController::class, 'customer'])->name('customer');
         Route::get('/get_chart_revenue', [StatisticController::class, 'getChartRevenue'])->name('get_chart_revenue');
+        Route::get('/get_chart_product', [StatisticController::class, 'getChartProduct'])->name('get_chart_product');
 
 
     });
