@@ -43,6 +43,15 @@ class Order extends Base
         return $this->belongsTo(Admin::class);
     }
 
+    public function getProfitAttribute()
+    {
+        $products = $this->orderProducts()->get();
+        $sum_price = $products->sum('pivot.price');
+        $sum_original_price = $products->sum('pivot.original_price');
+
+        return $sum_price - $sum_original_price;
+    }
+
     public function getPrettyTotalAttribute(): string
     {
         return number_format($this->total, 0, '', ',');
