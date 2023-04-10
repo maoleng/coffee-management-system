@@ -27,9 +27,16 @@ use Illuminate\Support\Str;
 class PostController extends Controller
 {
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $posts = Post::query()->orderByDesc('created_at')->paginate(12);
+        $data = $request->all();
+        $builder = Post::query();
+        if (isset($data['q'])) {
+            $builder->where('title', 'LIKE', "%{$data['q']}%")
+                ->orWhere('category', 'LIKE', "%{$data['q']}%")
+                ->orWhere('created_at', 'LIKE', "%{$data['q']}%");
+        }
+        $posts = $builder->orderByDesc('created_at')->paginate(12);
 
         return view('admin.post.index', [
             'posts' => $posts,

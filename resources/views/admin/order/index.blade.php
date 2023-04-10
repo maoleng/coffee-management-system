@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <div>
-                            <input type="search" id="i-search" name="q" class="form-control" placeholder="Search Invoice" aria-controls="DataTables_Table_0">
+                            <input type="search" id="i-search" name="q" value="{{ request()->get('q') }}" class="form-control" placeholder="Search">
                         </div>
                         <div class="invoice_status ms-sm-2"></div>
                     </div>

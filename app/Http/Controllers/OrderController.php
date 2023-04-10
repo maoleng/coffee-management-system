@@ -29,7 +29,7 @@ class OrderController extends Controller
         }
 
         $orders = $builder->with(['user', 'promotion'])
-            ->orderBy('status')->orderByDesc('ordered_at')->paginate(5);
+            ->orderBy('status')->orderByDesc('ordered_at')->paginate(10);
 
         return view('admin.order.index', [
             'orders' => $orders,
