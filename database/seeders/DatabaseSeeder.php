@@ -54,13 +54,17 @@ class DatabaseSeeder extends Seeder
                 'email' => $faker->email,
                 'status' => OrderStatus::getRandomValue(),
                 'total' => 0,
-                'ordered_at' => now(),
+                'ordered_at' => $faker->dateTimeBetween('-12 months'),
             ]);
 
             $total = 0;
             $products = Product::query()->get()->take(random_int(1, 5));
             $data = [];
             foreach ($products as $product) {
+                $original_price = Import::query()->with('importProducts')->whereHas('importProducts', function ($q) use ($product) {
+                    return $q->where('product_id', $product->id);
+                })->orderByDesc('created_at')->first()->importProducts->where('id', $product->id)->first()->pivot->price;
+
                 $amount = $faker->numberBetween(1, 5);
                 $total += $product->price * $amount;
                 $data[] = [
@@ -69,6 +73,7 @@ class DatabaseSeeder extends Seeder
                     'name' => $product->name,
                     'amount' => $amount,
                     'price' => $product->price,
+                    'original_price' => $original_price,
                 ];
             }
             DB::table('order_products')->insert($data);
@@ -83,7 +88,7 @@ class DatabaseSeeder extends Seeder
             'total' => 0,
             'admin_id' => Admin::query()->first()->id,
             'supplier_id' => Supplier::query()->first()->id,
-            'created_at' => now(),
+            'created_at' => now()->subMonths(15),
         ]);
 
         $total = 0;
@@ -115,7 +120,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->name,
                 'price' => $faker->numberBetween(50000, 100000),
                 'description' => $faker->text,
-                'expire_month' => $faker->numberBetween(12, 24),
+                'expire_month' => $faker->numberBetween(24, 48),
                 'category_id' => $faker->randomElement($category_ids),
             ];
         }

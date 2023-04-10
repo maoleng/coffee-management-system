@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('amount');
             $table->float('price');
+            $table->float('original_price');
             $table->primary(['order_id', 'product_id']);
         });
     }

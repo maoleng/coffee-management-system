@@ -24,6 +24,7 @@ class Order extends Base
             'name',
             'amount',
             'price',
+            'original_price',
         ]);
     }
 

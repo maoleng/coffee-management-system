@@ -133,6 +133,7 @@ class ProductController extends Controller
                 'name' => $product->name,
                 'amount' => $amount,
                 'price' => $price,
+                'original_price' => $price,
             ];
             $total += $amount * $price;
         }
