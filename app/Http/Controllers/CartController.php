@@ -142,7 +142,7 @@ class CartController extends Controller
 
     public function pay()
     {
-        $order = $this->handlePay();
+        $order = $this->handlePay(OrderStatus::DELIVERING);
 
         return [
             'url' => (new VNPayController())->createPaymentUrl($order->total, route('index')),
@@ -152,7 +152,7 @@ class CartController extends Controller
 
     public function directPay()
     {
-        $this->handlePay();
+        $this->handlePay(OrderStatus::UNPROCESSED);
     }
 
     public function updateIsPaid(Request $request)
@@ -161,7 +161,7 @@ class CartController extends Controller
         Order::query()->where('id', $order_id)->update(['is_paid' => true]);
     }
 
-    private function handlePay()
+    private function handlePay($status)
     {
         $data = session()->all();
         $total = $this->getCartSummarize()['total'];
@@ -184,7 +184,7 @@ class CartController extends Controller
             'address' => $data['information']['address'],
             'email' => $data['information']['email'],
             'phone' => $data['information']['phone'],
-            'status' => OrderStatus::UNPROCESSED,
+            'status' => $status,
             'ship_fee' => $data['ship_fee'],
             'total' => $total,
             'promotion_id' => isset($data['promotion']) ? $data['promotion']->id : null,
