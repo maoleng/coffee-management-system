@@ -139,7 +139,7 @@ class DatabaseSeeder extends Seeder
             for ($i = 1; $i <= $count; $i++) {
                 $data[] = [
                     'id' => Str::uuid(),
-                    'source' => $faker->imageUrl(1200, 1200),
+                    'source' => $faker->imageUrl(170, 133),
                     'product_id' => $product->id,
                 ];
             }
