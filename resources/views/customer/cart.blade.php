@@ -73,18 +73,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="col-xl-5 col-lg-7">
-                        <div class="cart-total mt-100">
-                            <h2 class="title">Cart Total</h2>
-                            <div class="ct-sub ct-sub__total">
-                                <span>Total</span>
-                                <span>{{ prettyPrice($total) }}</span>
+                @if (! empty(session()->get('cart')))
+                    <div class="row justify-content-end">
+                        <div class="col-xl-5 col-lg-7">
+                            <div class="cart-total mt-100">
+                                <h2 class="title">Cart Total</h2>
+                                <div class="ct-sub ct-sub__total">
+                                    <span>Total</span>
+                                    <span>{{ prettyPrice($total) }}</span>
+                                </div>
+                                <a href="{{ route('checkout') }}" class="site-btn">Procced to checkout</a>
                             </div>
-                            <a href="{{ route('checkout') }}" class="site-btn">Procced to checkout</a>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
         <!-- cart area end -->

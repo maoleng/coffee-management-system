@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Promotion;
@@ -134,9 +135,68 @@ class CartController extends Controller
     public function checkout()
     {
         $summarize = $this->getCartSummarize();
-        $information = session()->get('information');
+        $information = session()->get('information') ?? [];
 
         return view('customer.checkout', array_merge($summarize, $information));
+    }
+
+    public function pay()
+    {
+        $order = $this->handlePay();
+
+        return [
+            'url' => (new VNPayController())->createPaymentUrl($order->total, route('index')),
+            'order_id' => $order->id,
+        ];
+    }
+
+    public function directPay()
+    {
+        $this->handlePay();
+    }
+
+    public function updateIsPaid(Request $request)
+    {
+        $order_id = $request->get('order_id');
+        Order::query()->where('id', $order_id)->update(['is_paid' => true]);
+    }
+
+    private function handlePay()
+    {
+        $data = session()->all();
+        $total = $this->getCartSummarize()['total'];
+        $products = Product::query()->with('importProducts')->get();
+
+        $sync = [];
+        foreach ($data['cart'] as $product_id => $amount) {
+            $product = $products->where('id', $product_id)->first();
+            $original_price = $product->importProducts()->orderByDesc('created_at')->first()->pivot->price;
+            $sync[$product_id] = [
+                'name' => $product->name,
+                'amount' => $amount,
+                'price' => $product->price,
+                'original_price' => $original_price,
+            ];
+        }
+        $order = Order::query()->create([
+            'user_id' => authed()->id ?? null,
+            'name' => $data['information']['name'],
+            'address' => $data['information']['address'],
+            'email' => $data['information']['email'],
+            'phone' => $data['information']['phone'],
+            'status' => OrderStatus::UNPROCESSED,
+            'ship_fee' => $data['ship_fee'],
+            'total' => $total,
+            'promotion_id' => isset($data['promotion']) ? $data['promotion']->id : null,
+            'ordered_at' => now(),
+        ]);
+        $order->orderProducts()->sync($sync);
+        session()->remove('information');
+        session()->remove('total');
+        session()->remove('ship_fee');
+        session()->remove('cart');
+
+        return $order;
     }
 
     public function addToCart(Request $request)

@@ -335,6 +335,38 @@
     <script src="{{ asset('assets/js/add_to_cart.js') }}"></script>
     <script>
         $(document).ready(function() {
+            const order_id = localStorage.getItem('order_id')
+            if (order_id !== null) {
+                let timerInterval
+                Swal.fire({
+                    title: 'Checkout successfully',
+                    html: 'Close in <b></b> milliseconds.',
+                    timer: 4000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                            b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                })
+                $.ajax({
+                    url: '{{ route('update_is_paid') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        order_id: order_id,
+                    }
+                })
+
+                localStorage.removeItem('order_id')
+
+            }
+
             $('.view').on('click',function() {
                 const product_id = $(this).data('product_id')
                 // $('.overlay').addClass('show-popup')

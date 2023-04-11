@@ -51,6 +51,9 @@ Route::get('/remove_product', [CartController::class, 'removeProduct'])->name('r
 Route::post('/add_promotion', [CartController::class, 'addPromotion'])->name('add_promotion');
 Route::post('/add_information', [CartController::class, 'addInformation'])->name('add_information');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::post('/pay', [CartController::class, 'pay'])->name('pay');
+Route::post('/update_is_paid', [CartController::class, 'updateIsPaid'])->name('update_is_paid');
+Route::post('/direct_pay', [CartController::class, 'directPay'])->name('direct_pay');
 
 Route::get('/order_history', [CartController::class, 'orderHistory'])->name('order_history');
 Route::get('/order_detail', [CartController::class, 'orderDetail'])->name('order_detail');

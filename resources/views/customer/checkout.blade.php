@@ -78,25 +78,25 @@
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="cname2">Name</label>
-                                                                    <input type="text" value="{{ $name }}" name="name" id="cname2" placeholder="Name">
+                                                                    <input type="text" value="{{ $name ?? null }}" name="name" id="cname2" placeholder="Name">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="cname2">Address</label>
-                                                                    <input type="text" value="{{ $address }}" name="address" id="cname2" placeholder="Address">
+                                                                    <input type="text" value="{{ $address ?? null }}" name="address" id="cname2" placeholder="Address">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="rname2">Email</label>
-                                                                    <input type="text" value="{{ $email }}" name="email" id="rname2" placeholder="Email">
+                                                                    <input type="text" value="{{ $email ?? null }}" name="email" id="rname2" placeholder="Email">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="hname2">Phone</label>
-                                                                    <input type="text" value="{{ $phone }}" name="phone" id="hname2" placeholder="Phone">
+                                                                    <input type="text" value="{{ $phone ?? null }}" name="phone" id="hname2" placeholder="Phone">
                                                                 </div>
                                                             </div>
                                                             @if (session()->get('error') !== null)
@@ -111,9 +111,9 @@
                                                 <div class="cart-form">
                                                     <div class="row">
                                                         @if (session()->get('information') !== null)
-                                                            <a href="" class="mb-3 site-btn">Online Banking</a>
+                                                            <button id="btn-online_checkout" class="mb-3 site-btn">Online Banking</button>
                                                             <br>
-                                                            <a href="" class="site-btn">Direct payment</a>
+                                                            <button id="btn-direct_checkout" class="site-btn">Direct payment</button>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -162,6 +162,32 @@
     <script src="{{ asset('assets/js/add_to_cart.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $('#btn-online_checkout').on('click', function() {
+                $.ajax({
+                    url: '{{ route('pay') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    }
+                }).done(function(data) {
+                    localStorage.setItem('order_id', data.order_id)
+                    window.location.href = data.url;
+                })
+
+            })
+            $('#btn-direct_checkout').on('click', function() {
+                $.ajax({
+                    url: '{{ route('direct_pay') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    }
+                }).done(function() {
+                    localStorage.setItem('order_id', '1')
+                    window.location.href = '{{ route('index') }}';
+                })
+            })
+
             $('.view').on('click',function() {
                 const product_id = $(this).data('product_id')
                 $('.overlay').addClass('show-popup')

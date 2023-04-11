@@ -46,6 +46,7 @@ class Product extends Base
             'name',
             'amount',
             'price',
+            'original_price',
         ]);
     }
 
