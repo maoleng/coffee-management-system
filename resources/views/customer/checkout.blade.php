@@ -78,31 +78,31 @@
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="cname2">Name</label>
-                                                                    <input type="text" name="name" id="cname2" placeholder="Name">
+                                                                    <input type="text" value="{{ $name }}" name="name" id="cname2" placeholder="Name">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="cname2">Address</label>
-                                                                    <input type="text" name="address" id="cname2" placeholder="Address">
+                                                                    <input type="text" value="{{ $address }}" name="address" id="cname2" placeholder="Address">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="rname2">Email</label>
-                                                                    <input type="text" name="email" id="rname2" placeholder="Email">
+                                                                    <input type="text" value="{{ $email }}" name="email" id="rname2" placeholder="Email">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-12">
                                                                 <div class="from-group mt-30">
                                                                     <label for="hname2">Phone</label>
-                                                                    <input type="text" name="phone" id="hname2" placeholder="Phone">
+                                                                    <input type="text" value="{{ $phone }}" name="phone" id="hname2" placeholder="Phone">
                                                                 </div>
                                                             </div>
                                                             @if (session()->get('error') !== null)
                                                                 {{ session()->get('error') }}
                                                             @endif
-                                                            <button class="site-btn site-btn site-btn__bghide" type="submit">Apply promotion</button>
+                                                            <button class="site-btn site-btn site-btn__bghide" type="submit">Update information</button>
                                                         </div>
                                                     </form>
                                                 </div>

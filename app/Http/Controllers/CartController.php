@@ -133,8 +133,9 @@ class CartController extends Controller
     public function checkout()
     {
         $summarize = $this->getCartSummarize();
+        $information = session()->get('information');
 
-        return view('customer.checkout', $summarize);
+        return view('customer.checkout', array_merge($summarize, $information));
     }
 
     public function addToCart(Request $request)
