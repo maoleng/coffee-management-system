@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--====== Title ======-->
-    <title>Cafena - Coffee Shop HTML5 Template</title>
+    <title>The Coffee</title>
 
     <!--====== Favicon ======-->
-    <link rel="shortcut icon" href="assets/images/logo/favicon.ico" type="images/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('app-assets/images/ico/favicon.ico') }}" type="images/x-icon" />
 
     <!--====== CSS Here ======-->
     <link rel="stylesheet" href="{{ asset('customer-assets/css/bootstrap.min.css') }}">

@@ -14,15 +14,13 @@
                                 coffee aroma</h1>
                             <p>The coffee is brewed by first roasting the green coffee beans over hot <br> coals in a brazier. given an opportunity to sample.</p>
                             <div class="btns mt-45 d-flex align-items-center justify-content-start">
-                                <a href="about.html" class="site-btn site-btn__2">testy Coffee</a>
-                                <a href="contact.html" class="site-btn">Read More</a>
+                                <a href="{{ route('support') }}" class="site-btn">Read More</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-6 col-lg-5">
                         <div class="hero__thumb hero__thumb--2 position-relative">
                             <img src="{{ asset('customer-assets/images/hero/hero-img-2-1.png') }}" alt="img">
-                            <a href="//www.youtube.com/embed/4xe72U7mXNg?rel=0&amp;controls=0&amp;showinfo=0" data-rel="lightcase:myCollection" data-animation="fadeInLeft" class="video-btn video-btn__2 d-flex align-items-center"><i class="fas fa-play"></i><span class="border-effect">play video</span></a>
                         </div>
                     </div>
                 </div>

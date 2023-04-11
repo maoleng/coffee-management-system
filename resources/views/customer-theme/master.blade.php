@@ -16,8 +16,11 @@
                     <span data-text-preloader="C" class="letters-loading">
                         C
                     </span>
-                <span data-text-preloader="A" class="letters-loading">
-                        A
+                <span data-text-preloader="O" class="letters-loading">
+                        O
+                    </span>
+                <span data-text-preloader="F" class="letters-loading">
+                        F
                     </span>
                 <span data-text-preloader="F" class="letters-loading">
                         F
@@ -25,11 +28,8 @@
                 <span data-text-preloader="E" class="letters-loading">
                         E
                     </span>
-                <span data-text-preloader="N" class="letters-loading">
-                        N
-                    </span>
-                <span data-text-preloader="A" class="letters-loading">
-                        A
+                <span data-text-preloader="E" class="letters-loading">
+                        E
                     </span>
             </div>
         </div>

@@ -43,8 +43,8 @@
                                         </div>
                                         <div class="content">
                                             <h3 class="title">Contact us</h3>
-                                            <a href="mailto:Israfilsupol836@gmail.com">Israfilsupol836@gmail.com</a>
-                                            <a href="tel:088-01869018907">088 - 01869018907</a>
+                                            <a href="mailto:Israfilsupol836@gmail.com">tuvanhocduong@tdtu.edu.vn</a>
+                                            <a href="tel:088-01869018907">(028) 37 755 035</a>
                                         </div>
                                     </div>
                                 </div>
@@ -55,8 +55,7 @@
                                         </div>
                                         <div class="content">
                                             <h3 class="title">Our Location</h3>
-                                            <p>Hera Road 2344-78 Australia
-                                                897- South Side Melbon</p>
+                                            <p>19, Nguyen Huu Tho Str, Tan Phong ward, District 7, Ho Chi Minh</p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,9 +65,8 @@
                                             <img src="{{ asset('customer-assets/images/icons/ci-3.png') }}" alt="">
                                         </div>
                                         <div class="content">
-                                            <h3 class="title">Opening HOurs</h3>
-                                            <p>Mon - Sat (8:00 - 6:00)</p>
-                                            <p>Sunday - Closed</p>
+                                            <h3 class="title">Opening Hours</h3>
+                                            <p>Mon - Sat (8:00 - 22:00)</p>
                                         </div>
                                     </div>
                                 </div>
