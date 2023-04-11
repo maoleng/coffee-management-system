@@ -26,6 +26,9 @@
 {{--                        </div>--}}
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
+                        <div style="padding-right: 25px; width: 50%">
+                            <input value="{{ implode(' to ', explode(',', request()->get('ordered_at'))) }}" id="i-ordered_at" type="text" class="form-control flatpickr-range flatpickr-input active" placeholder="Filter order time range" readonly="readonly">
+                        </div>
                         <div class="btn-group" style="padding-right: 25px">
                             <button type="button" class="btn btn-outline-primary dropdown-toggle waves-effect" data-bs-toggle="dropdown" aria-expanded="false">
                                 @php ($status = request()->get('status'))
@@ -336,7 +339,20 @@
     </div>
 @endsection
 
+@section('vendor_style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+@endsection
+
+@section('page_style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
+@endsection
+
+@section('page_vendor_script')
+    <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+@endsection
+
 @section('page_script')
+    <script src="{{ asset('app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
     <script src="{{ asset('app-assets/js/scripts/components/components-modals.js') }}"></script>
     <script src="{{ asset('assets/js/handle_search.js') }}"></script>
     <script>
