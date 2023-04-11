@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/product', [HomeController::class, 'product'])->name('product');
+Route::get('/product/{id}', [HomeController::class, 'showProduct'])->name('product.show');
 Route::get('/post', [HomeController::class, 'post'])->name('post');
 Route::get('/post/{post}', [HomeController::class, 'showPost'])->name('post.show');
 

@@ -126,7 +126,7 @@
                                                     </div>
                                                 </div>
                                                 <h4 class="pp__title pp__title--2">
-                                                    <a href="product-details.html">{{ $product->name }}</a>
+                                                    <a href="{{ route('product.show', ['id' => $product->id]) }}">{{ $product->name }}</a>
                                                 </h4>
                                                 <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
                                                     <h6 class="label">Price - </h6>
@@ -158,7 +158,7 @@
                                                             </div>
                                                         </div>
                                                         <h4 class="pp__title pp__title--2 pp__title--list">
-                                                            <a href="product-details.html">{{ $product->name }}</a>
+                                                            <a href="{{ route('product.show', ['id' => $product->id]) }}">{{ $product->name }}</a>
                                                         </h4>
                                                         <div class="pp__price pp__price--2 pp__price--list d-flex align-items-center">
                                                             <h6 class="label">Price - </h6>

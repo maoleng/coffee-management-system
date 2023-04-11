@@ -76,6 +76,20 @@ class HomeController extends Controller
         ]);
     }
 
+
+    public function showProduct($id)
+    {
+        $product = Product::query()->with(['category', 'images'])->findOrFail($id);
+        $relate_products = Product::query()->inRandomOrder()->where('category_id', $product->category_id)->get()->take(4);
+
+
+        return view('customer.show_product', [
+            'product' => $product,
+            'relate_products' => $relate_products,
+        ]);
+    }
+
+
     public function showPost(Post $post)
     {
         $other_posts = Post::query()->inRandomOrder()->get()->take(4);
