@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="popular-menu__content text-center">
                                     <h2 class="title">
-                                        <a href="product-details.html">{{ $product->name }}</a>
+                                        <a href="{{ route('product.show', ['id' => $product->id]) }}">{{ $product->name }}</a>
                                     </h2>
                                     <div class="pp__price d-flex align-items-center justify-content-center">
                                         <h6 class="label">Price - </h6>
@@ -155,7 +155,7 @@
                                             <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
                                         </div>
                                         <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
-                                            <a href="#"><i class="fal fa-eye"></i></a>
+                                            <button href="#"><i class="fal fa-eye"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +294,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="btns-wrapper text-center text-lg-end">
-                            <a href="about.html" class="site-btn">learn more</a>
+                            <a href="{{ route('post') }}" class="site-btn">learn more</a>
                         </div>
                     </div>
                 </div>
@@ -312,7 +312,7 @@
                                     <li><span>By: </span> {{ $post->admin->name }}</li>
                                 </ul>
                                 <h3 class="blog__title blog__title--2 border-effect">
-                                    <a href="blog-details.html">{{ $post->limitTitle }}</a>
+                                    <a href="{{ route('post.show', ['post' => $post]) }}">{{ $post->limitTitle }}</a>
                                 </h3>
                                 <div class="btn-wrapper mt-15 d-flex justify-content-between">
                                     <a href="blog-details.html" class="read-more read-more__2">Read more <i class="fa fa-long-arrow-right"></i></a>
@@ -337,7 +337,7 @@
         $(document).ready(function() {
             $('.view').on('click',function() {
                 const product_id = $(this).data('product_id')
-                $('.overlay').addClass('show-popup')
+                // $('.overlay').addClass('show-popup')
                 $(`#${product_id}`).addClass('show-popup')
             })
 

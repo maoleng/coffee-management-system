@@ -112,7 +112,7 @@
                                                     <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
                                                 </div>
                                                 <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
-                                                    <a href="#"><i class="fal fa-eye"></i></a>
+                                                    <button href="#"><i class="fal fa-eye"></i></button>
                                                 </div>
                                             </div>
                                             <div class="pp__thumb pp__thumb--2 mt-35">
@@ -169,7 +169,7 @@
                                                                 <a href="#0"><i class="fal fa-shopping-basket"></i></a>
                                                             </div>
                                                             <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
-                                                                <a href="#0"><i class="fal fa-eye"></i></a>
+                                                                <button href="#0"><i class="fal fa-eye"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
