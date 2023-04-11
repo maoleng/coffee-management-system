@@ -91,7 +91,7 @@ class PostController extends Controller
             'banner' => $this->handleBanner($data['banner'], $post->id),
         ]);
 
-        $this->handleTags($data['tags'], $post);
+        $this->handleTags($data['tags'] ?? [], $post);
 
         return redirect()->route('admin.post.index');
     }
@@ -111,7 +111,7 @@ class PostController extends Controller
             $update_data['banner'] = $this->handleBanner($data['banner'], $post->id);
         }
         $post->update($update_data);
-        $this->handleTags($data['tags'], $post);
+        $this->handleTags($data['tags'] ?? [], $post);
 
         return redirect()->route('admin.post.index');
     }
