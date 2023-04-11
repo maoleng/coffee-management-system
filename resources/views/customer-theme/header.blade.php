@@ -8,7 +8,7 @@
                             <ul>
                                 <li class="active"><a href="{{ route('index') }}">Home</a></li>
                                 <li><a href="{{ route('product') }}">Product</a></li>
-                                <li><a href="reservation.html">Blog</a></li>
+                                <li><a href="{{ route('post') }}">Post</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -65,7 +65,7 @@
                                 <ul>
                                     <li class="active"><a href="{{ route('index') }}">Home</a></li>
                                     <li><a href="{{ route('product') }}">Product</a></li>
-                                    <li><a href="reservation.html">Blog</a></li>
+                                    <li><a href="{{ route('post') }}">Post</a></li>
                                     <li><a href="reservation.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                     @if (authed() === null)

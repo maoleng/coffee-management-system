@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PostCategory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
@@ -40,5 +41,10 @@ class Post extends Base
     public function getPrettyCategoryAttribute(): string
     {
         return PostCategory::getDescription($this->category);
+    }
+
+    public function getPrettyCreatedAtAttribute(): string
+    {
+        return Carbon::make($this->created_at)->toFormattedDateString();
     }
 }

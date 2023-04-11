@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/product', [HomeController::class, 'product'])->name('product');
+Route::get('/post', [HomeController::class, 'post'])->name('post');
 
 
 Route::group(['prefix' => 'auth', 'as' => 'auth.', 'middleware' => [IfAlreadyLogin::class]], static function () {

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PostCategory;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -41,11 +43,35 @@ class HomeController extends Controller
                     ->orWhere('expire_month', 'LIKE', "%{$data['q']}%");
             });
         }
-        $products = $builder->with(['category', 'images'])->orderByDesc('created_at')->paginate(9);
+        $products = $builder->with(['category', 'images'])->orderByDesc('created_at')->paginate(6);
 
         return view('customer.product', [
             'products' => $products,
             'categories' => $categories,
+
+        ]);
+    }
+
+    public function post(Request $request)
+    {
+        $data = $request->all();
+        $builder = Post::query();
+        if (isset($data['q'])) {
+            $builder->where(function ($q) use ($data) {
+                $q->orWhere('title', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('category', 'LIKE', "%{$data['q']}%")
+                    ->orWhere('created_at', 'LIKE', "%{$data['q']}%");
+            });
+        }
+        $posts = $builder->with('admin')->orderByDesc('created_at')->paginate(6);
+        $other_posts = Post::query()->inRandomOrder()->get()->take(4);
+        $tags = Tag::query()->get();
+
+        return view('customer.post', [
+            'posts' => $posts,
+            'categories' => PostCategory::getDescriptions(),
+            'other_posts' => $other_posts,
+            'tags' => $tags,
 
         ]);
     }
