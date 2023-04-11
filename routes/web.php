@@ -55,6 +55,9 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/order_history', [CartController::class, 'orderHistory'])->name('order_history');
 Route::get('/order_detail', [CartController::class, 'orderDetail'])->name('order_detail');
 
+Route::get('/support', [HomeController::class, 'support'])->name('support');
+Route::post('/send_support_request', [HomeController::class, 'sendSupportRequest'])->name('send_support_request');
+
 Route::get('/test', function () {
     return json_encode(session()->all());
 });

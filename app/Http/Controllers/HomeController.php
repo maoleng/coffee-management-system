@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PostCategory;
+use App\Enums\SupportStatus;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\Support;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -89,6 +91,22 @@ class HomeController extends Controller
         ]);
     }
 
+    public function support()
+    {
+        return view('customer.support');
+    }
+
+    public function sendSupportRequest(Request $request)
+    {
+        $data = $request->except('_token');
+        Support::query()->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'content' => $data['content'],
+            'status' => SupportStatus::UNPROCESSED,
+            'created_at' => now(),
+        ]);
+    }
 
     public function showPost(Post $post)
     {

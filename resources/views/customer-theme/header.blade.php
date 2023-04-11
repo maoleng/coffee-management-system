@@ -26,8 +26,7 @@
                         <div class="main-menu main-menu__3 main-menu__4">
                             <nav>
                                 <ul>
-                                    <li><a href="reservation.html">About</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="{{ route('support') }}">Contact</a></li>
                                     @if (authed() === null)
                                         <li><a href="{{ route('auth.redirect') }}">Login</a></li>
                                     @else
@@ -66,8 +65,7 @@
                                     <li class="active"><a href="{{ route('index') }}">Home</a></li>
                                     <li><a href="{{ route('product') }}">Product</a></li>
                                     <li><a href="{{ route('post') }}">Post</a></li>
-                                    <li><a href="reservation.html">About</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="{{ route('support') }}">Contact</a></li>
                                     @if (authed() === null)
                                         <li><a href="{{ route('auth.redirect') }}">Login</a></li>
                                     @else
