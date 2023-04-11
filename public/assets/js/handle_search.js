@@ -13,6 +13,15 @@ $('#i-ordered_at').on('change', function () {
     handle('ordered_at', ordered_at)
 })
 
+$('#i-created_at').on('change', function () {
+    const range = $(this).val().split(' to ')
+    if (range.length !== 2) {
+        return
+    }
+    let created_at = range.join(',')
+    handle('created_at', created_at)
+})
+
 function handle(param_name, value)
 {
     let url = window.location.href.split('?')[0];
