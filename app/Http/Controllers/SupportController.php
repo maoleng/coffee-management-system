@@ -27,6 +27,10 @@ class SupportController extends Controller
         if (isset($data['status'])) {
             $builder->where('status', $data['status']);
         }
+        if (isset($data['created_at'])) {
+            $split = explode(',', $data['created_at']);
+            $builder->whereBetween('created_at', [$split[0], $split[1]]);
+        }
         if (isset($data['q'])) {
             $builder->where(function ($q) use ($data) {
                 $q->orWhere('name', 'LIKE', "%{$data['q']}%")
