@@ -154,10 +154,10 @@
                                     </div>
                                     <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
                                         <div class="cart d-flex align-items-center justify-content-center">
-                                            <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                            <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
                                         </div>
                                         <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
-                                            <a href="#0"><i class="fal fa-eye"></i></a>
+                                            <a href="#"><i class="fal fa-eye"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -169,51 +169,49 @@
         </section>
 
         @foreach ($products as $product)
-        <div id="{{ $product->id }}" class="product-popup product-popup-1">
-            <div class="view-background">
-                <div class="row">
-                    <div class="col-md-4 align-self-center">
-                        <div class="quickview d-flex align-items-center justify-content-center">
-                            <div class="quickview__thumb">
-                                <img src="{{ $product->images[0]->path }}" alt="">
+            <div id="{{ $product->id }}" class="product-popup product-popup-1">
+                <div class="view-background">
+                    <div class="row">
+                        <div class="col-md-4 align-self-center">
+                            <div class="quickview d-flex align-items-center justify-content-center">
+                                <div class="quickview__thumb">
+                                    <img src="{{ $product->images[0]->path }}" alt="">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="viewcontent">
-                            <div class="viewcontent__header">
-                                <h2>{{ $product->name }}</h2>
-                                <a class="view_close product-p-close" href="javascript:void(0)"><i class="fal fa-times"></i></a>
-                            </div>
-                            <div class="viewcontent__price">
-                                <h4>{{ prettyPrice($product->price) }}</h4>
-                            </div>
-                            <div class="viewcontent__stock">
-                                <h4>Available :<span> In stock</span></h4>
-                            </div>
-                            <div class="viewcontent__details">
-                                <p>{{ $product->description }}</p>
-                            </div>
-                            <div class="viewcontent__action">
-                                <span>Qty</span>
-                                <input type="number" placeholder="1">
-                                <a class="site-btn" href="#">add to cart</a>
-                            </div>
-                            <div class="viewcontent__footer">
-                                <ul class="list-unstyled">
-                                    <li>Category:</li>
-                                    <li>Expire month:</li>
-                                </ul>
-                                <ul class="list-unstyled">
-                                    <li>{{ $product->category->name }}</li>
-                                    <li>{{ $product->expire_month }}</li>
-                                </ul>
+                        <div class="col-md-8">
+                            <div class="viewcontent">
+                                <div class="viewcontent__header">
+                                    <h2>{{ $product->name }}</h2>
+                                    <a class="view_close product-p-close" href="javascript:void(0)"><i class="fal fa-times"></i></a>
+                                </div>
+                                <div class="viewcontent__price">
+                                    <h4>{{ prettyPrice($product->price) }}</h4>
+                                </div>
+                                <div class="viewcontent__stock">
+                                    <h4>Available :<span> In stock</span></h4>
+                                </div>
+                                <div class="viewcontent__details">
+                                    <p>{{ $product->description }}</p>
+                                </div>
+                                <div class="viewcontent__action">
+                                    <button data-product_id="{{ $product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
+                                </div>
+                                <div class="viewcontent__footer">
+                                    <ul class="list-unstyled">
+                                        <li>Category:</li>
+                                        <li>Expire month:</li>
+                                    </ul>
+                                    <ul class="list-unstyled">
+                                        <li>{{ $product->category->name }}</li>
+                                        <li>{{ $product->expire_month }}</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endforeach
 
         <section class="topgrade__area topgrade__area--2 grey-bg pt-115 pb-115 position-relative">
@@ -334,12 +332,47 @@
 @endsection
 
 @section('custom_script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="{{ asset('assets/js/add_to_cart.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.view').on('click',function() {
                 const product_id = $(this).data('product_id')
                 $('.overlay').addClass('show-popup')
                 $(`#${product_id}`).addClass('show-popup')
+            })
+
+            $('.btn-add_to_cart').on('click', function() {
+                const product_id = $(this).data('product_id')
+
+                $.ajax({
+                    url: '{{ route('add_to_cart') }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: product_id,
+                    }
+                }).done(function(e) {
+                    $('.product-p-close').click()
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Add to cart successfully',
+                        html: 'Close in <b></b> milliseconds.',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                            const b = Swal.getHtmlContainer().querySelector('b')
+                            timerInterval = setInterval(() => {
+                                b.textContent = Swal.getTimerLeft()
+                            }, 100)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                    })
+                })
             })
         })
     </script>
