@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="row d-flex justify-content-between align-items-center m-1">
-                    <div class="col-lg-6 d-flex align-items-start">
+                    <div class="col-lg-3 d-flex align-items-start">
                         <div class="dt-action-buttons text-xl-end text-lg-start text-lg-end text-start ">
                             <div class="dt-buttons">
                                 <a href="{{ route('admin.promotion.create') }}" class="dt-button btn btn-primary btn-add-record ms-2" tabindex="0" aria-controls="DataTables_Table_0" type="button">
@@ -18,11 +18,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
+                    <div class="col-lg-9 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
+                        <div style="padding-right: 25px; width: 30%">
+                            <input value="{{ implode(' to ', explode(',', request()->get('created_at'))) }}" id="i-created_at" type="text" class="form-control flatpickr-range flatpickr-input active" placeholder="Filter create time range" readonly="readonly">
+                        </div>
+                        <div style="padding-right: 25px; width: 30%">
+                            <input value="{{ implode(' to ', explode(',', request()->get('expired_at'))) }}" id="i-expired_at" type="text" class="form-control flatpickr-range flatpickr-input active" placeholder="Filter expire time range" readonly="readonly">
+                        </div>
                         <div class="btn-group" style="padding-right: 25px">
                             <button type="button" class="btn btn-outline-primary dropdown-toggle waves-effect" data-bs-toggle="dropdown" aria-expanded="false">
                                 @php ($active = request()->get('active'))
-                                @if ($active === null) All @elseif ($active === 1) Active @else Inactive @endif
+                                @if ($active === null) All @elseif ($active === '1') Active @else Inactive @endif
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="?role=">All</a>
@@ -90,6 +96,19 @@
     </div>
 @endsection
 
+@section('vendor_style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+@endsection
+
+@section('page_style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
+@endsection
+
+@section('page_vendor_script')
+    <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+@endsection
+
 @section('page_script')
+    <script src="{{ asset('app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
     <script src="{{ asset('assets/js/handle_search.js') }}"></script>
 @endsection

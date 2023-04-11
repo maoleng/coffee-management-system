@@ -22,6 +22,15 @@ $('#i-created_at').on('change', function () {
     handle('created_at', created_at)
 })
 
+$('#i-expired_at').on('change', function () {
+    const range = $(this).val().split(' to ')
+    if (range.length !== 2) {
+        return
+    }
+    let expired_at = range.join(',')
+    handle('expired_at', expired_at)
+})
+
 function handle(param_name, value)
 {
     let url = window.location.href.split('?')[0];
