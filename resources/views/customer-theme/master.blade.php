@@ -61,6 +61,7 @@
 @include('customer-theme.footer')
 
 @include('customer-theme.script')
+@yield('custom_script')
 </body>
 
 </html>

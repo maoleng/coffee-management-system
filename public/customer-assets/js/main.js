@@ -148,17 +148,6 @@
 	});
 
 	//  product popup
-	$('.view').on('click',function() {
-		$('.overlay, .product-popup-1').addClass('show-popup');
-	});
-
-	$('.product-highlight__trigger').on('click',function() {
-		$('.overlay, .popup-coffe-mechine').addClass('show-popup');
-	});
-
-	$('.overlay,.product-p-close').on('click',function() {
-		$('.overlay, .popup-coffe-mechine, .product-popup').removeClass('show-popup');
-	});
 
 	// Activate lightcase
 	$('a[data-rel^=lightcase]').lightcase();

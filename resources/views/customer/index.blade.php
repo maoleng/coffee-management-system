@@ -129,217 +129,70 @@
                         <div class="popular-menu__wrapper m-auto d-inline-block">
                             <div class="popular-menu__filter d-flex justify-content-center align-items-center mb-55">
                                 <button class="active" data-filter="*">All</button>
-                                <button data-filter=".cat1">chocolate</button>
-                                <button data-filter=".cat2">coffee</button>
-                                <button data-filter=".cat3">sandwiches</button>
-                                <button data-filter=".cat4">sweets</button>
-                                <button data-filter=".cat5">Black tea</button>
-                                <button data-filter=".cat6">Grean Tea</button>
+                                @foreach ($categories as $category)
+                                    <button data-filter=".{{ $category->id }}">{{ $category->name }}</button>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="popular-menu-grid" class="row popular-menu__grid mt-none-30">
                     <div class="col-xl-4 col-lg-6 col-md-6 grid-sizer"></div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat5 mt-30">
-                        <div class="popular-menu__item">
-                            <div class="popular-menu__thumb">
-                                <img src="assets/images/menu/menu-1.jpeg" alt="">
-                            </div>
-                            <div class="popular-menu__content text-center">
-                                <h2 class="title">
-                                    <a href="product-details.html">Americano Coffee</a>
-                                </h2>
-                                <div class="pp__price d-flex align-items-center justify-content-center">
-                                    <h6 class="label">Price - </h6>
-                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
+                    @foreach ($products as $product)
+                        <div class="col-xl-4 col-lg-6 col-md-6 grid-item {{ $product->category_id }} mt-30">
+                            <div class="popular-menu__item">
+                                <div class="popular-menu__thumb">
+                                    <img src="{{ $product->images[0]->path }}" alt="">
                                 </div>
-                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                    <div class="cart d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                <div class="popular-menu__content text-center">
+                                    <h2 class="title">
+                                        <a href="product-details.html">{{ $product->name }}</a>
+                                    </h2>
+                                    <div class="pp__price d-flex align-items-center justify-content-center">
+                                        <h6 class="label">Price - </h6>
+                                        <span class="price"> {{ prettyPrice($product->price) }}</span></span>
                                     </div>
-                                    <div class="wishlist d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                    <div class="view d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat2 cat5 cat4 mt-30">
-                        <div class="popular-menu__item">
-                            <div class="popular-menu__thumb">
-                                <img src="assets/images/menu/menu-2.jpeg" alt="">
-                            </div>
-                            <div class="popular-menu__content text-center">
-                                <h2 class="title">
-                                    <a href="product-details.html">CAFFÈ LATTE</a>
-                                </h2>
-                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                    <h6 class="label">Price - </h6>
-                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                </div>
-                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                    <div class="cart d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                    </div>
-                                    <div class="wishlist d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                    <div class="view d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-eye"></i></a>
+                                    <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
+                                        <div class="cart d-flex align-items-center justify-content-center">
+                                            <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                        </div>
+                                        <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
+                                            <a href="#0"><i class="fal fa-eye"></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat2 cat5 mt-30">
-                        <div class="popular-menu__item">
-                            <div class="popular-menu__thumb">
-                                <img src="assets/images/menu/menu-3.jpeg" alt="">
-                            </div>
-                            <div class="popular-menu__content text-center">
-                                <h2 class="title">
-                                    <a href="product-details.html">ESPRESSO RISTRETTO</a>
-                                </h2>
-                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                    <h6 class="label">Price - </h6>
-                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                </div>
-                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                    <div class="cart d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                    </div>
-                                    <div class="wishlist d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                    <div class="view d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat3 cat4 cat5 mt-30">
-                        <div class="popular-menu__item">
-                            <div class="popular-menu__thumb">
-                                <img src="assets/images/menu/menu-4.jpeg" alt="">
-                            </div>
-                            <div class="popular-menu__content text-center">
-                                <h2 class="title">
-                                    <a href="product-details.html">LATTE MACCHIATO</a>
-                                </h2>
-                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                    <h6 class="label">Price - </h6>
-                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                </div>
-                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                    <div class="cart d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                    </div>
-                                    <div class="wishlist d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                    <div class="view d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat5 cat4 mt-30">
-                        <div class="popular-menu__item">
-                            <div class="popular-menu__thumb">
-                                <img src="assets/images/menu/menu-5.jpeg" alt="">
-                            </div>
-                            <div class="popular-menu__content text-center">
-                                <h2 class="title">
-                                    <a href="product-details.html">ESPRESSO LUNGO</a>
-                                </h2>
-                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                    <h6 class="label">Price - </h6>
-                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                </div>
-                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                    <div class="cart d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                    </div>
-                                    <div class="wishlist d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                    <div class="view d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat6 cat4 mt-30">
-                        <div class="popular-menu__item">
-                            <div class="popular-menu__thumb">
-                                <img src="assets/images/menu/menu-6.jpeg" alt="">
-                            </div>
-                            <div class="popular-menu__content text-center">
-                                <h2 class="title">
-                                    <a href="product-details.html">CAFÈ AU LAIT</a>
-                                </h2>
-                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                    <h6 class="label">Price - </h6>
-                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                </div>
-                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                    <div class="cart d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                    </div>
-                                    <div class="wishlist d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-heart"></i></a>
-                                    </div>
-                                    <div class="view d-flex align-items-center justify-content-center">
-                                        <a href="#0"><i class="fal fa-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
-        <!-- populer menu area end -->
 
-        <!-- product popup start -->
-        <div class="product-popup product-popup-1">
+        @foreach ($products as $product)
+        <div id="{{ $product->id }}" class="product-popup product-popup-1">
             <div class="view-background">
                 <div class="row">
                     <div class="col-md-4 align-self-center">
                         <div class="quickview d-flex align-items-center justify-content-center">
                             <div class="quickview__thumb">
-                                <img src="{{ asset('customer-assets/images/products/pp-1.png') }}" alt="">
+                                <img src="{{ $product->images[0]->path }}" alt="">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="viewcontent">
                             <div class="viewcontent__header">
-                                <h2>VICARAGUA COFFEE BEANS</h2>
+                                <h2>{{ $product->name }}</h2>
                                 <a class="view_close product-p-close" href="javascript:void(0)"><i class="fal fa-times"></i></a>
                             </div>
-                            <div class="viewcontent__rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fal fa-star"></i>
-                            </div>
                             <div class="viewcontent__price">
-                                <h4><span>$</span>99.00</h4>
+                                <h4>{{ prettyPrice($product->price) }}</h4>
                             </div>
                             <div class="viewcontent__stock">
                                 <h4>Available :<span> In stock</span></h4>
                             </div>
                             <div class="viewcontent__details">
-                                <p>Anlor sit amet, consectetur adipiscing elit. Fusce condimentum est lacus, non pretium risus lacinia vel. Fusce eget turpis orci.</p>
+                                <p>{{ $product->description }}</p>
                             </div>
                             <div class="viewcontent__action">
                                 <span>Qty</span>
@@ -349,13 +202,9 @@
                             <div class="viewcontent__footer">
                                 <ul class="list-unstyled">
                                     <li>Category:</li>
-                                    <li>SKU:</li>
-                                    <li>Brand:</li>
                                 </ul>
                                 <ul class="list-unstyled">
-                                    <li>Watches</li>
-                                    <li>2584-MK63</li>
-                                    <li>Brenda</li>
+                                    <li>{{ $product->category->name }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -363,68 +212,8 @@
                 </div>
             </div>
         </div>
-        <!-- product popup end -->
+        @endforeach
 
-        <!-- testimonail area start -->
-        <section class="testimonial__area pt-115 pb-110 position-relative bg_img" data-overlay="dark" data-opacity="5" data-background="assets/images/bg/testimonial-bg-2.jpeg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 text-center">
-                        <div class="section-heading mb-40">
-                            <span class="sub-title">Testimonial</span>
-                            <h2 class="title">Our customer review</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col-xl-12">
-                        <div class="testimonial__active owl-carousel slider-nav">
-                            <div class="testimonial__item text-center">
-                                <div class="row g-0 justify-content-center">
-                                    <div class="col-xl-8">
-                                        <span class="quote mb-20">
-                                            <img src="{{ asset('customer-assets/images/icons/t-quote.png') }}" alt="">
-                                        </span>
-                                        <p>Very good quality of food and service. Vast menu with child friendly items as well as local seafood and even entrees for those who dont like seafood. Great place! Thanks. We absolutely love everything there!</p>
-                                        <div class="author-info mt-35">
-                                            <div class="thumb mb-25">
-                                                <img src="{{ asset('customer-assets/images/author/tm-author.png') }}" alt="">
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="name">Rasalina De Willamson</h4>
-                                                <span class="designation">Founder & co</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="testimonial__item text-center">
-                                <div class="row g-0 justify-content-center">
-                                    <div class="col-xl-8">
-                                        <span class="quote mb-20">
-                                            <img src="{{ asset('customer-assets/images/icons/t-quote.png') }}" alt="">
-                                        </span>
-                                        <p>Very good quality of food and service. Vast menu with child friendly items as well as local seafood and even entrees for those who dont like seafood. Great place! Thanks. We absolutely love everything there!</p>
-                                        <div class="author-info mt-35">
-                                            <div class="thumb mb-25">
-                                                <img src="{{ asset('customer-assets/images/author/tm-author.png') }}" alt="">
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="name">Rasalina De Willamson</h4>
-                                                <span class="designation">Founder & co</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- testimonail area end -->
-
-        <!-- top grade area start -->
         <section class="topgrade__area topgrade__area--2 grey-bg pt-115 pb-115 position-relative">
             <span class="shape shape__1 position-absolute"><img src="{{ asset('customer-assets/images/shape/top-grade-shape-2-1.png') }}" alt=""></span>
             <span class="shape shape__2 position-absolute"><img src="{{ asset('customer-assets/images/shape/top-grade-shape-2-2.png') }}" alt=""></span>
@@ -489,9 +278,7 @@
                 </div>
             </div>
         </section>
-        <!-- top grade area end -->
 
-        <!-- blog area start -->
         <div class="blog__area blog__area--2 position-relative pt-115 pb-120">
             <span class="shape shape__1">
                 <img src="{{ asset('customer-assets/images/shape/blog-shape-2-1.png') }}" alt="">
@@ -514,19 +301,20 @@
                     </div>
                 </div>
                 <div class="row mt-none-30">
-                    <div class="col-xl-4 col-lg-6 col-md-6 mt-30">
+                    @foreach ($posts as $post)
+                        <div class="col-xl-4 col-lg-6 col-md-6 mt-30">
                         <article class="blog__item blog__item--2">
                             <div class="thumb position-relative">
                                 <div class="img">
-                                    <img src="assets/images/blog/blog-2-1.jpeg" alt="">
+                                    <img src="{{ $post->banner }}" alt="">
                                 </div>
                             </div>
                             <div class="content content__2">
                                 <ul class="blog__meta blog__meta--2 list-unstyled d-flex align-items-center justify-content-start">
-                                    <li><span>By: </span> Rasalina</li>
+                                    <li><span>By: </span> {{ $post->admin->name }}</li>
                                 </ul>
                                 <h3 class="blog__title blog__title--2 border-effect">
-                                    <a href="blog-details.html">Questions business must be able to answers</a>
+                                    <a href="blog-details.html">{{ $post->limitTitle }}</a>
                                 </h3>
                                 <div class="btn-wrapper mt-15 d-flex justify-content-between">
                                     <a href="blog-details.html" class="read-more read-more__2">Read more <i class="fa fa-long-arrow-right"></i></a>
@@ -535,52 +323,22 @@
                             </div>
                         </article>
                     </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 mt-30">
-                        <article class="blog__item blog__item--2">
-                            <div class="thumb position-relative">
-                                <div class="img">
-                                    <img src="assets/images/blog/blog-2-2.jpeg" alt="">
-                                </div>
-                            </div>
-                            <div class="content content__2">
-                                <ul class="blog__meta blog__meta--2 list-unstyled d-flex align-items-center justify-content-start">
-                                    <li><span>By: </span> Rasalina</li>
-                                </ul>
-                                <h3 class="blog__title blog__title--2 border-effect">
-                                    <a href="blog-details.html">Build a cool mornig with cafena Coffee</a>
-                                </h3>
-                                <div class="btn-wrapper mt-15 d-flex justify-content-between">
-                                    <a href="blog-details.html" class="read-more read-more__2">Read more <i class="fa fa-long-arrow-right"></i></a>
-                                    <a href="#0" class="share-btn"><i class="fal fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="col-xl-4 col-lg-6 col-md-6 mt-30">
-                        <article class="blog__item blog__item--2">
-                            <div class="thumb position-relative">
-                                <div class="img">
-                                    <img src="assets/images/blog/blog-2-3.jpeg" alt="">
-                                </div>
-                            </div>
-                            <div class="content content__2">
-                                <ul class="blog__meta blog__meta--2 list-unstyled d-flex align-items-center justify-content-start">
-                                    <li><span>By: </span> Rasalina</li>
-                                </ul>
-                                <h3 class="blog__title blog__title--2 border-effect">
-                                    <a href="blog-details.html">ideal cocktails from our barmen for pefect mood</a>
-                                </h3>
-                                <div class="btn-wrapper mt-15 d-flex justify-content-between">
-                                    <a href="blog-details.html" class="read-more read-more__2">Read more <i class="fa fa-long-arrow-right"></i></a>
-                                    <a href="#0" class="share-btn"><i class="fal fa-share-alt"></i></a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-        <!-- blog area end -->
     </main>
 
+@endsection
+
+@section('custom_script')
+    <script>
+        $(document).ready(function() {
+            $('.view').on('click',function() {
+                const product_id = $(this).data('product_id')
+                $('.overlay').addClass('show-popup')
+                $(`#${product_id}`).addClass('show-popup')
+            })
+        })
+    </script>
 @endsection
