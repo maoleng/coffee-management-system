@@ -84,7 +84,7 @@
                         <div class="shop-filter-wrapper d-flex justify-content-between align-items-center mb-30">
                             <div class="sf-left">
                                 <div class="show-text">
-                                    <span>Showing 1–12 of 54 results</span>
+                                    <span></span>
                                 </div>
                             </div>
                             <div class="sf-right d-flex justify-content-end align-items-center">
