@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Promotion;
 use GuzzleHttp\Client;
@@ -159,5 +160,24 @@ class CartController extends Controller
                 session()->decrement("cart.$product_id");
         }
 
+    }
+
+    public function orderHistory()
+    {
+        if (empty(authed())) {
+            return redirect()->back();
+        }
+        $orders = Order::query()->where('user_id', authed()->id)->orderByDesc('ordered_at')->paginate(9);
+
+        return view('customer.order_history', [
+            'orders' => $orders,
+        ]);
+    }
+
+    public function orderDetail()
+    {
+        $data = (new OrderController())->show();
+
+        return view('admin.order.print', $data);
     }
 }

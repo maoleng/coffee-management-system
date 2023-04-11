@@ -36,6 +36,7 @@
                                                 <img width="50px" src="{{ authed()->avatar }}" alt="">
                                             </div>
                                             <ul class="sub-menu">
+                                                <li><a href="{{ route('order_history') }}">Order History</a></li>
                                                 <li><a href="{{ route('auth.logout') }}">Log out</a></li>
                                             </ul>
                                         </li>

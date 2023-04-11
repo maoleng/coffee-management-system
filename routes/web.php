@@ -39,6 +39,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/product', [HomeController::class, 'product'])->name('product');
 Route::get('/post', [HomeController::class, 'post'])->name('post');
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/cart_summarize', [CartController::class, 'getCartSummarize'])->name('cart_summarize');
 Route::post('/add_to_cart', [CartController::class, 'addToCart'])->name('add_to_cart');
@@ -49,6 +50,8 @@ Route::post('/add_promotion', [CartController::class, 'addPromotion'])->name('ad
 Route::post('/add_information', [CartController::class, 'addInformation'])->name('add_information');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
+Route::get('/order_history', [CartController::class, 'orderHistory'])->name('order_history');
+Route::get('/order_detail', [CartController::class, 'orderDetail'])->name('order_detail');
 
 Route::get('/test', function () {
     return json_encode(session()->all());
