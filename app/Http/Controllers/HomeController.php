@@ -75,4 +75,17 @@ class HomeController extends Controller
 
         ]);
     }
+
+    public function showPost(Post $post)
+    {
+        $other_posts = Post::query()->inRandomOrder()->get()->take(4);
+        $tags = Tag::query()->get();
+
+        return view('customer.show_post', [
+            'post' => $post,
+            'categories' => PostCategory::getDescriptions(),
+            'other_posts' => $other_posts,
+            'tags' => $tags,
+        ]);
+    }
 }
