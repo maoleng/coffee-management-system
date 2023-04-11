@@ -84,7 +84,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="m-3">{{ $promotions->links('vendor.pagination') }}</div>
+                <div class="m-3">{{ $promotions->withQueryString()->links('vendor.pagination') }}</div>
             </div>
         </div>
     </div>

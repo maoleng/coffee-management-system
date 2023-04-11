@@ -59,7 +59,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="m-3">{{ $posts->links('vendor.pagination') }}</div>
+            <div class="m-3">{{ $posts->withQueryString()->links('vendor.pagination') }}</div>
         </div>
     </div>
 @endsection
