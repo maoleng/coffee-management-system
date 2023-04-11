@@ -44,9 +44,8 @@
                             </nav>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <div class="cart cart-trigger item position-relative">
+                            <div id="btn-cart" class="cart cart-trigger item position-relative">
                                 <i class="fa fa-shopping-basket"></i>
-                                <span class="cart__count"></span>
                             </div>
                         </div>
                     </div>
@@ -89,7 +88,6 @@
                     <div class="menu-area__right menu-area__right--4  d-flex justify-content-end align-items-center">
                         <div class="cart cart-trigger item position-relative">
                             <i class="fa fa-shopping-basket"></i>
-                            <span class="cart__count">3</span>
                         </div>
                     </div>
                 </div>

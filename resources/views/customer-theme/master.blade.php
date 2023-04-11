@@ -52,10 +52,7 @@
 </div>
 <!-- preloader end -->
 
-<!-- header start -->
 @include('customer-theme.header')
-<!-- header end -->
-@include('customer-theme.side_bar')
 @yield('content')
 
 @include('customer-theme.footer')
