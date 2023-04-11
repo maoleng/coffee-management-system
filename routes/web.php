@@ -14,6 +14,11 @@ use App\Http\Controllers\PromotionController;
 use App\Http\Middleware\AuthAdmin;
 use App\Http\Middleware\AuthLogin;
 use App\Http\Middleware\IfAlreadyLogin;
+use App\Http\Middleware\Role\AdminMaster;
+use App\Http\Middleware\Role\CustomerCareEmployee;
+use App\Http\Middleware\Role\MarketingEmployee;
+use App\Http\Middleware\Role\ProductWarehouseEmployee;
+use App\Http\Middleware\Role\SaleEmployee;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +50,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         session()->put('dark_mode', ! session()->get('dark_mode'));
     })->name('toggle_dark_mode');
 
-    Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.'], static function () {
+    Route::group(['prefix' => 'warehouse', 'as' => 'warehouse.', 'middleware' => [ProductWarehouseEmployee::class]], static function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/create', [ProductController::class, 'create'])->name('create');
         Route::post('/store', [ProductController::class, 'store'])->name('store');
@@ -56,7 +61,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::delete('/destroy/{product}', [ProductController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['prefix' => 'supplier', 'as' => 'supplier.'], static function () {
+    Route::group(['prefix' => 'supplier', 'as' => 'supplier.', 'middleware' => [ProductWarehouseEmployee::class]], static function () {
         Route::get('/', [SupplierController::class, 'index'])->name('index');
         Route::get('/create', [SupplierController::class, 'create'])->name('create');
         Route::post('/store', [SupplierController::class, 'store'])->name('store');
@@ -65,7 +70,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::delete('/destroy/{supplier}', [SupplierController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['prefix' => 'promotion', 'as' => 'promotion.'], static function () {
+    Route::group(['prefix' => 'promotion', 'as' => 'promotion.', 'middleware' => [SaleEmployee::class]], static function () {
         Route::get('/', [PromotionController::class, 'index'])->name('index');
         Route::get('/create', [PromotionController::class, 'create'])->name('create');
         Route::post('/store', [PromotionController::class, 'store'])->name('store');
@@ -74,24 +79,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::delete('/destroy/{promotion}', [PromotionController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['prefix' => 'hrm', 'as' => 'hrm.'], static function () {
+    Route::group(['prefix' => 'hrm', 'as' => 'hrm.', 'middleware' => [AdminMaster::class]], static function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::post('/store', [AdminController::class, 'store'])->name('store');
         Route::put('/cancel/{admin}', [AdminController::class, 'cancel'])->name('cancel');
     });
 
-    Route::group(['prefix' => 'customer', 'as' => 'customer.'], static function () {
+    Route::group(['prefix' => 'customer', 'as' => 'customer.', 'middleware' => [CustomerCareEmployee::class]], static function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/show', [UserController::class, 'show'])->name('show');
     });
 
-    Route::group(['prefix' => 'customer-care', 'as' => 'customer-care.'], static function () {
+    Route::group(['prefix' => 'customer-care', 'as' => 'customer-care.', 'middleware' => [CustomerCareEmployee::class]], static function () {
         Route::get('/', [SupportController::class, 'index'])->name('index');
         Route::post('/{support}', [SupportController::class, 'response'])->name('response');
         Route::put('/filter/{support}', [SupportController::class, 'filter'])->name('filter');
     });
 
-    Route::group(['prefix' => 'post', 'as' => 'post.'], static function () {
+    Route::group(['prefix' => 'post', 'as' => 'post.', 'middleware' => [MarketingEmployee::class]], static function () {
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::get('/create', [PostController::class, 'create'])->name('create');
         Route::post('/store', [PostController::class, 'store'])->name('store');
@@ -100,14 +105,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => [AuthAdmin:
         Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['prefix' => 'order', 'as' => 'order.'], static function () {
+    Route::group(['prefix' => 'order', 'as' => 'order.', 'middleware' => [SaleEmployee::class]], static function () {
         Route::get('/', [OrderController::class, 'index'])->name('index');
         Route::get('/show', [OrderController::class, 'show'])->name('show');
         Route::get('/print', [OrderController::class, 'print'])->name('print');
         Route::put('/update', [OrderController::class, 'update'])->name('update');
     });
 
-    Route::group(['prefix' => 'statistic', 'as' => 'statistic.'], function () {
+    Route::group(['prefix' => 'statistic', 'as' => 'statistic.', 'middleware' => [AdminMaster::class]], static function () {
         Route::get('/revenue', [StatisticController::class, 'revenue'])->name('revenue');
         Route::get('/product', [StatisticController::class, 'product'])->name('product');
         Route::get('/get_chart_revenue', [StatisticController::class, 'getChartRevenue'])->name('get_chart_revenue');

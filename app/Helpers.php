@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AdminRole;
 use App\Lib\JWT\JWT;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -34,5 +35,12 @@ if (!function_exists('appendMenu')) {
     function appendMenu($route): string
     {
         return Route::currentRouteName() === $route ? 'active' : '';
+    }
+}
+
+if (!function_exists('validRole')) {
+    function validRole($role): string
+    {
+        return in_array(authed()->role, [AdminRole::ADMIN, $role], true);
     }
 }
