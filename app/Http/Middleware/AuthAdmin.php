@@ -21,6 +21,9 @@ class AuthAdmin
         if (empty($check) || $check->role === null) {
             return redirect()->route('index');
         }
+        if (! $check->active) {
+            abort(403);
+        }
 
         return $next($request);
     }
