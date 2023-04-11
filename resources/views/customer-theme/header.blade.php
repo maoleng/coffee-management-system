@@ -7,7 +7,7 @@
                         <nav>
                             <ul>
                                 <li class="active"><a href="{{ route('index') }}">Home</a></li>
-                                <li><a href="menu.html">Product</a></li>
+                                <li><a href="{{ route('product') }}">Product</a></li>
                                 <li><a href="reservation.html">Blog</a></li>
                             </ul>
                         </nav>
@@ -64,7 +64,7 @@
                             <nav id="mobile-menu">
                                 <ul>
                                     <li class="active"><a href="{{ route('index') }}">Home</a></li>
-                                    <li><a href="menu.html">Product</a></li>
+                                    <li><a href="{{ route('product') }}">Product</a></li>
                                     <li><a href="reservation.html">Blog</a></li>
                                     <li><a href="reservation.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>

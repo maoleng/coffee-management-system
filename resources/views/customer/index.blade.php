@@ -202,9 +202,11 @@
                             <div class="viewcontent__footer">
                                 <ul class="list-unstyled">
                                     <li>Category:</li>
+                                    <li>Expire month:</li>
                                 </ul>
                                 <ul class="list-unstyled">
                                     <li>{{ $product->category->name }}</li>
+                                    <li>{{ $product->expire_month }}</li>
                                 </ul>
                             </div>
                         </div>
