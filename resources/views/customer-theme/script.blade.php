@@ -15,3 +15,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfpGBFn5yRPvJrvAKoGIdj1O1aO9QisgQ"></script>
 <script src="{{ asset('customer-assets/js/jquery-ui-slider-range.js') }}"></script>
 <script src="{{ asset('customer-assets/js/main.js') }}"></script>
+<script>
+    $('#btn-cart').on('click', function() {
+        window.location.href = '{{ route('cart') }}'
+    })
+</script>

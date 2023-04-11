@@ -14,6 +14,11 @@ class Promotion extends Base
         'active' => 'bool'
     ];
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function getPrettyActiveAttribute(): string
     {
         return $this->active === true ?

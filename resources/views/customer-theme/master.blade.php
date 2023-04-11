@@ -7,6 +7,7 @@
 
 <body>
 <!-- preloader  -->
+@if (\Illuminate\Support\Facades\Route::currentRouteName() !== 'cart')
 <div id="preloader">
     <div id="ctn-preloader" class="ctn-preloader">
         <div class="animation-preloader">
@@ -50,6 +51,7 @@
         </div>
     </div>
 </div>
+@endif
 <!-- preloader end -->
 
 @include('customer-theme.header')
