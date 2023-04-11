@@ -35,7 +35,7 @@ class ProductController extends Controller
                     ->orWhere('expire_month', 'LIKE', "%{$data['q']}%");
             });
         }
-        $products = $builder->with('images')->orderBy('name')->paginate(10);
+        $products = $builder->with('images')->orderByDesc('created_at')->paginate(10);
         $categories = Category::query()->get();
 
         return view('admin.product.index', [
@@ -172,6 +172,7 @@ class ProductController extends Controller
             'description' => $data['description'],
             'expire_month' => $data['expire_month'],
             'category_id' => $data['category_id'],
+            'created_at' => now(),
         ]);
 
         $folder = "products/$product->id";

@@ -15,7 +15,7 @@ class Product extends Base
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'price', 'description', 'expire_month', 'category_id',
+        'name', 'price', 'description', 'expire_month', 'category_id', 'created_at',
     ];
 
     protected $appends = [

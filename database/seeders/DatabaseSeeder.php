@@ -122,6 +122,7 @@ class DatabaseSeeder extends Seeder
                 'description' => $faker->text,
                 'expire_month' => $faker->numberBetween(24, 48),
                 'category_id' => $faker->randomElement($category_ids),
+                'created_at' => now()->subYears(2),
             ];
         }
         Product::query()->insert($data);
