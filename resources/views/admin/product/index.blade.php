@@ -26,6 +26,9 @@
                         </div>
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0">
+                        <div style="padding-right: 25px; width: 50%">
+                            <input value="{{ implode(' to ', explode(',', request()->get('created_at'))) }}" id="i-created_at" type="text" class="form-control flatpickr-range flatpickr-input active" placeholder="Filter create time range" readonly="readonly">
+                        </div>
                         <div class="btn-group" style="padding-right: 25px">
                             <button type="button" class="btn btn-outline-primary dropdown-toggle waves-effect" data-bs-toggle="dropdown" aria-expanded="false">
                                 @php ($category = request()->get('category'))
@@ -53,6 +56,7 @@
                             <th>Category</th>
                             <th>Left</th>
                             <th>Expired In</th>
+                            <th>Created At</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -69,6 +73,7 @@
                                 <td>{{ $product->category->name }}</td>
                                 <td><span class="badge rounded-pill badge-light-primary me-1">{{ $product->left['amount'] }}</span></td>
                                 <td><span class="badge rounded-pill badge-light-success me-1">{{ $product->left['date'] }}</span></td>
+                                <td>{{ $product->created_at }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown">
@@ -101,6 +106,19 @@
     </div>
 @endsection
 
+@section('vendor_style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+@endsection
+
+@section('page_style')
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
+@endsection
+
+@section('page_vendor_script')
+    <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+@endsection
+
 @section('page_script')
+    <script src="{{ asset('app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
     <script src="{{ asset('assets/js/handle_search.js') }}"></script>
 @endsection
