@@ -14,8 +14,10 @@
             <div class="card-header">
                 <h4 class="card-title">Product</h4>
             </div>
-
             <div class="card-body">
+                @if (session()->get('error') !== null)
+                    {{ session()->get('error') }}
+                @endif
                 <form action="{{ route('admin.warehouse.process_import') }}" method="post" class="invoice-repeater">
                     @csrf
                     <div class="col-md-3 col-12">
@@ -83,8 +85,7 @@
                             <button class="btn btn-icon btn-success p-1">
                                 <span>Import</span>
                             </button>
-
-
+                            <a href="{{ route('admin.warehouse.index') }}" class="btn btn-icon btn-secondary p-1">Cancel</a>
                         </div>
 
                     </div>

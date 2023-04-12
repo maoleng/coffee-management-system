@@ -116,6 +116,11 @@ class ProductController extends Controller
     public function processImport(Request $request): RedirectResponse
     {
         $data = $request->all();
+        $data['products'] = collect($data['products'])->whereNotNull('product_id')
+            ->whereNotNull('price')->whereNotNull('amount')->toArray();
+        if (empty($data['products'])) {
+            return redirect()->back()->with('error', 'Product not found or not filled');
+        }
         $this->destroyOldProducts(array_column($data['products'], 'product_id'));
         $import = Import::query()->create([
             'total' => 0,
@@ -146,6 +151,9 @@ class ProductController extends Controller
         $total = 0;
         foreach ($products as $product) {
             $import_products = $product->importProducts;
+            if ($import_products->isEmpty()) {
+                break;
+            }
             $product = $import_products->where('created_at', $import_products->max('created_at'))->first()
                 ->importProducts()->where('product_id', $product->id)->first();
             $amount = $product->left['amount'];
@@ -158,13 +166,15 @@ class ProductController extends Controller
             ];
             $total += $amount * $price;
         }
-        $order = Order::query()->create([
-            'status' => OrderStatus::DESTROY,
-            'total' => $total,
-            'admin_id' => authed()->id,
-            'ordered_at' => now(),
-        ]);
-        $order->orderProducts()->sync($sync);
+        if ($total !== 0) {
+            $order = Order::query()->create([
+                'status' => OrderStatus::DESTROY,
+                'total' => $total,
+                'admin_id' => authed()->id,
+                'ordered_at' => now(),
+            ]);
+            $order->orderProducts()->sync($sync);
+        }
     }
 
     public function store(ProductRequest $request): RedirectResponse
