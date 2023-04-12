@@ -48,7 +48,7 @@
                                         <tr>
                                         <td class="product-thumbnail">
                                             <a href="#" class="img">
-                                                <img src="{{ $product['information']->images[0]->path }}" alt="">
+                                                <img src="{{ $product['information']->images[0]->path ?? null }}" alt="">
                                             </a>
                                             <a href="{{ route('remove_product', ['product_id' => $id]) }}" class="product-remove"><i class="fal fa-times"></i></a>
                                         </td>

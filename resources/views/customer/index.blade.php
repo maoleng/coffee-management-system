@@ -140,7 +140,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6 grid-item {{ $product->category_id }} mt-30">
                             <div class="popular-menu__item">
                                 <div class="popular-menu__thumb">
-                                    <img src="{{ $product->images[0]->path }}" alt="">
+                                    <img src="{{ $product->images[0]->path ?? null }}" alt="">
                                 </div>
                                 <div class="popular-menu__content text-center">
                                     <h2 class="title">
@@ -173,7 +173,7 @@
                         <div class="col-md-4 align-self-center">
                             <div class="quickview d-flex align-items-center justify-content-center">
                                 <div class="quickview__thumb">
-                                    <img src="{{ $product->images[0]->path }}" alt="">
+                                    <img src="{{ $product->images[0]->path ?? null }}" alt="">
                                 </div>
                             </div>
                         </div>

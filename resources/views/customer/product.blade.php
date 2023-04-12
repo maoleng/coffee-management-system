@@ -34,7 +34,7 @@
                         <div class="col-md-4 align-self-center">
                             <div class="quickview d-flex align-items-center justify-content-center">
                                 <div class="quickview__thumb">
-                                    <img src="{{ $product->images[0]->path }}" alt="">
+                                    <img src="{{ $product->images[0]->path ?? null }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -116,8 +116,8 @@
                                                 </div>
                                             </div>
                                             <div class="pp__thumb pp__thumb--2 mt-35">
-                                                <img class="default" src="{{ $product->images[0]->path }}" alt="">
-                                                <img class="on-hover" src="{{ $product->images[1]->path }}" alt="">
+                                                <img class="default" src="{{ $product->images[0]->path ?? null }}" alt="">
+                                                <img class="on-hover" src="{{ $product->images[1]->path ?? null }}" alt="">
                                             </div>
                                             <div class="pp__content pp__content--2 mt-25">
                                                 <div class="pp__c-top d-flex align-items-center justify-content-center">
@@ -146,8 +146,8 @@
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4">
                                                     <div class="pp__thumb pp__thumb--2 pp__thumb--list m-0">
-                                                        <img class="default" src="{{ $product->images[0]->path }}" alt="">
-                                                        <img class="on-hover" src="{{ $product->images[1]->path }}" alt="">
+                                                        <img class="default" src="{{ $product->images[0]->path ?? null }}" alt="">
+                                                        <img class="on-hover" src="{{ $product->images[1]->path ?? null }}" alt="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8">
