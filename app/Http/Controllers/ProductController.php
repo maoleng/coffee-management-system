@@ -142,7 +142,7 @@ class ProductController extends Controller
         $import->importProducts()->sync($sync);
         $import->update(['total' => $total]);
 
-        return redirect()->route('admin.warehouse.index');
+        return redirect()->route('admin.warehouse.index')->with('success', 'Import products successfully');
     }
 
     public function destroyOldProducts($product_ids): void
