@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\AdminRole;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\PromotionRequest;
+use App\Jobs\SendMail;
+use App\Mail\MailInviteAdmin;
 use App\Models\Admin;
 use App\Models\Promotion;
 use Illuminate\Contracts\View\View;
@@ -53,7 +55,11 @@ class AdminController extends Controller
     public function store(AdminRequest $request): RedirectResponse
     {
         $data = $request->validated();
-
+        if ($data['is_send_mail']) {
+            $template = new MailInviteAdmin(AdminRole::getDescription($data['role']));
+            $mail = new SendMail($template, $data['email']);
+            dispatch($mail);
+        }
         Admin::query()->create([
             'name' => '',
             'email' => $data['email'],

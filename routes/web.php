@@ -62,6 +62,8 @@ Route::get('/support', [HomeController::class, 'support'])->name('support');
 Route::post('/send_support_request', [HomeController::class, 'sendSupportRequest'])->name('send_support_request');
 
 Route::get('/test', function () {
+    return view('mail.invite_admin');
+
     return json_encode(session()->all());
 });
 

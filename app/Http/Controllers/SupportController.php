@@ -7,7 +7,7 @@ use App\Enums\OrderStatus;
 use App\Enums\SupportStatus;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\PromotionRequest;
-use App\Jobs\SendMailCustomerCare;
+use App\Jobs\SendMail;
 use App\Mail\MailCustomerCare;
 use App\Models\Admin;
 use App\Models\Promotion;
@@ -56,7 +56,7 @@ class SupportController extends Controller
             'response' => $response,
         ];
         $template = new MailCustomerCare($data);
-        $mail = new SendMailCustomerCare($template, $support->email);
+        $mail = new SendMail($template, $support->email);
         dispatch($mail);
         $support->status = SupportStatus::SUCCESSFUL;
         $support->response = $response;
