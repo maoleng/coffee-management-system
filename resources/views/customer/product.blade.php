@@ -48,14 +48,17 @@
                                     <h4>{{ prettyPrice($product->price) }}</h4>
                                 </div>
                                 <div class="viewcontent__stock">
-                                    <h4>Available :<span> In stock</span></h4>
+                                    @php ($status = $product->status)
+                                    <h4>Available :<span> {{ $status['raw'] }}</span></h4>
                                 </div>
                                 <div class="viewcontent__details">
                                     <p>{{ $product->description }}</p>
                                 </div>
+                                @if ($status['status'])
                                 <div class="viewcontent__action">
                                     <button data-product_id="{{ $product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
                                 </div>
+                                @endif
                                 <div class="viewcontent__footer">
                                     <ul class="list-unstyled">
                                         <li>Category:</li>

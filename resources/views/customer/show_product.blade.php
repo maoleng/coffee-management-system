@@ -48,14 +48,17 @@
                                     <h4>{{ prettyPrice($relate_product->price) }}</h4>
                                 </div>
                                 <div class="viewcontent__stock">
-                                    <h4>Available :<span> In stock</span></h4>
+                                    @php ($status = $relate_product->status)
+                                    <h4>Available :<span> {{ $status['raw'] }}</span></h4>
                                 </div>
                                 <div class="viewcontent__details">
                                     <p>{{ $relate_product->description }}</p>
                                 </div>
-                                <div class="viewcontent__action">
-                                    <button data-product_id="{{ $relate_product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
-                                </div>
+                                @if ($status['status'])
+                                    <div class="viewcontent__action">
+                                        <button data-product_id="{{ $relate_product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
+                                    </div>
+                                @endif
                                 <div class="viewcontent__footer">
                                     <ul class="list-unstyled">
                                         <li>Category:</li>
@@ -111,13 +114,16 @@
                             </div>
                             <p>{{ $product->description }}</p>
                             <span class="in-stock">
-                                <i class="fal fa-check"></i> In Stock
+                                @php ($status = $product->status)
+                                <i class="fal fa-check"></i> {{ $status['raw'] }}
                             </span>
                             <h3 class="price">{{ prettyPrice($product->price) }}</h3>
-                            <div class="product-quantity d-flex align-items-center">
-                                <span>Quantity</span>
-                                <button data-product_id="{{ $product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
-                            </div>
+                            @if ($status['status'])
+                                <div class="product-quantity d-flex align-items-center">
+                                    <span>Quantity</span>
+                                    <button data-product_id="{{ $product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
+                                </div>
+                            @endif
                             <div class="pd-social-wrapper">
                                 <span class="share"><i class="fas fa-share"></i> Share</span>
                                 <div class="social-links d-flex align-items-center">

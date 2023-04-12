@@ -204,6 +204,10 @@ class CartController extends Controller
         $data = $request->all();
         $product_id = $data['product_id'];
         $type = $data['type'] ?? 'increase';
+        $left = Product::query()->find($product_id)->left;
+        if ($left['amount'] === 0) {
+            return false;
+        }
 
         $count_product = session()->get("cart.$product_id");
         if ($type === 'increase') {
@@ -220,6 +224,7 @@ class CartController extends Controller
                 session()->decrement("cart.$product_id");
         }
 
+        return true;
     }
 
     public function orderHistory()

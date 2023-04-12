@@ -50,6 +50,14 @@ class Product extends Base
         ]);
     }
 
+    public function getStatusAttribute()
+    {
+        $amount_left = $this->left['amount'];
+
+        return $amount_left === 0 ? ['raw' => 'Out of stock', 'status' => false] :
+            ['raw' => 'In Stock', 'status' => true];
+    }
+
     public function getLeftAttribute(): array
     {
         $orders = $this->orderProducts;
