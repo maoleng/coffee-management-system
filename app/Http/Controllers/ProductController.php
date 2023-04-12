@@ -92,7 +92,7 @@ class ProductController extends Controller
         if (isset($data['images'])) {
             $folder = "products/$product->id";
             Storage::disk('public')->delete($folder);
-            Image::query()->where('id', $product->id)->delete();
+            Image::query()->where('product_id', $product->id)->delete();
             foreach ($data['images'] as $i => $image) {
                 $path = "$folder/$i.{$image->getClientOriginalExtension()}";
                 Storage::disk('public')->put($path, $image->getContent());
