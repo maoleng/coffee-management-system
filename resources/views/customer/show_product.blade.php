@@ -27,34 +27,34 @@
         <!-- breadcrumb area end -->
 
         <!-- product popup start -->
-        @foreach ($relate_products as $product)
-            <div id="{{ $product->id }}" class="product-popup product-popup-1">
+        @foreach ($relate_products as $relate_product)
+            <div id="{{ $relate_product->id }}" class="product-popup product-popup-1">
                 <div class="view-background">
                     <div class="row">
                         <div class="col-md-4 align-self-center">
                             <div class="quickview d-flex align-items-center justify-content-center">
                                 <div class="quickview__thumb">
-                                    <img src="{{ $product->images[0]->path }}" alt="">
+                                    <img src="{{ $relate_product->images[0]->path }}" alt="">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="viewcontent">
                                 <div class="viewcontent__header">
-                                    <h2>{{ $product->name }}</h2>
+                                    <h2>{{ $relate_product->name }}</h2>
                                     <a class="view_close product-p-close" href="javascript:void(0)"><i class="fal fa-times"></i></a>
                                 </div>
                                 <div class="viewcontent__price">
-                                    <h4>{{ prettyPrice($product->price) }}</h4>
+                                    <h4>{{ prettyPrice($relate_product->price) }}</h4>
                                 </div>
                                 <div class="viewcontent__stock">
                                     <h4>Available :<span> In stock</span></h4>
                                 </div>
                                 <div class="viewcontent__details">
-                                    <p>{{ $product->description }}</p>
+                                    <p>{{ $relate_product->description }}</p>
                                 </div>
                                 <div class="viewcontent__action">
-                                    <button data-product_id="{{ $product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
+                                    <button data-product_id="{{ $relate_product->id }}" class="btn-add_to_cart site-btn cursor-pointer">add to cart</button>
                                 </div>
                                 <div class="viewcontent__footer">
                                     <ul class="list-unstyled">
@@ -62,8 +62,8 @@
                                         <li>Expire month:</li>
                                     </ul>
                                     <ul class="list-unstyled">
-                                        <li>{{ $product->category->name }}</li>
-                                        <li>{{ $product->expire_month }}</li>
+                                        <li>{{ $relate_product->category->name }}</li>
+                                        <li>{{ $relate_product->expire_month }}</li>
                                     </ul>
                                 </div>
                             </div>

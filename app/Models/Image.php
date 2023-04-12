@@ -12,6 +12,6 @@ class Image extends Base
 
     public function getPathAttribute()
     {
-        return str_starts_with($this->source, 'http') ? $this->source : "storage/$this->source";
+        return str_starts_with($this->source, 'http') ? $this->source : asset("storage/$this->source");
     }
 }
