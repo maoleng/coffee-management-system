@@ -67,7 +67,7 @@ class PromotionController extends Controller
 
     public function store(PromotionRequest $request): RedirectResponse
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         Promotion::query()->create([
             'name' => $data['name'],
@@ -79,12 +79,12 @@ class PromotionController extends Controller
             'expired_at' => $data['expired_at'],
         ]);
 
-        return redirect()->route('admin.promotion.index');
+        return redirect()->route('admin.promotion.index')->with('success', 'New promotion is created successfully');
     }
 
     public function update(PromotionRequest $request, Promotion $promotion): RedirectResponse
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $promotion->update([
             'name' => $data['name'],

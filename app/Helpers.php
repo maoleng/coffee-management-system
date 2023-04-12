@@ -65,3 +65,25 @@ if (!function_exists('successAlert')) {
         ";
     }
 }
+
+if (!function_exists('errorAlert')) {
+    function errorAlert(): string
+    {
+        $message = session()->get('error');
+        if ($message === null) {
+            return '';
+        }
+
+        return "
+            Swal.fire({
+                title: 'Error!',
+                text: '$message',
+                icon: 'error',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+            })
+        ";
+    }
+}

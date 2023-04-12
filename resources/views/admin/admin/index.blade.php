@@ -47,9 +47,6 @@
                                     </div>
                                 </div>
                                 <div class="btn-group dropup">
-                                    @if (session()->get('error') !== null)
-                                        {{ session()->get('error') }}
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -163,7 +160,7 @@
 
     <script>
         {!! successAlert() !!}
-
+        {!! errorAlert() !!}
         const btn_lock = $('.btn-lock')
         btn_lock.on('click', function () {
             const form_id = $(this).parent().attr('id')

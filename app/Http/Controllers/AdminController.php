@@ -69,7 +69,7 @@ class AdminController extends Controller
             'created_at' => now(),
         ]);
 
-        return redirect()->route('admin.hrm.index');
+        return redirect()->route('admin.hrm.index')->with('success', 'New employee has been created');
     }
 
 

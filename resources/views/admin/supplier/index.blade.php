@@ -93,19 +93,6 @@
     <script>
         alertDangerEvent('.btn-del')
         {!! successAlert() !!}
-
-        @if (session()->get('error') !== null)
-            Swal.fire({
-                title: 'Error!',
-                text: '{{ session()->get('error') }}',
-                icon: 'error',
-                customClass: {
-                    confirmButton: 'btn btn-primary'
-                },
-                buttonsStyling: false
-            });
-        @endif
-
-
+        {!! errorAlert() !!}
     </script>
 @endsection
