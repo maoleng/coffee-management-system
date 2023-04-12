@@ -156,16 +156,18 @@
                         <div class="col-xl-3 col-lg-6 col-md-6 mt-30">
                             <div class="pp__item pp__item--2 text-center pt-20 pb-20">
                                 <div class="pp__action pp__action--2 d-flex align-items-center justify-content-center">
-                                    <div class="cart d-flex align-items-center justify-content-center">
-                                        <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
-                                    </div>
+                                    @if ($product->status['status'])
+                                        <div class="cart d-flex align-items-center justify-content-center">
+                                            <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
+                                        </div>
+                                    @endif
                                     <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
                                         <button href="#"><i class="fal fa-eye"></i></button>
                                     </div>
                                 </div>
                                 <div class="pp__thumb pp__thumb--2 mt-35">
-                                    <img class="default" src="{{ $product->images[0]->path ?? null }}" alt="">
-                                    <img class="on-hover" src="{{ $product->images[1]->path ?? null }}" alt="">
+                                    <img class="default" style="height: 133px" src="{{ $product->images[0]->path ?? null }}" alt="">
+                                    <img class="on-hover" style="height: 133px" src="{{ $product->images[1]->path ?? null }}" alt="">
                                 </div>
                                 <div class="pp__content pp__content--2 mt-25">
                                     <div class="pp__c-top d-flex align-items-center justify-content-center">

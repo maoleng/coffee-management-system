@@ -111,9 +111,11 @@
                                         <div class="col-xl-4 col-lg-6 col-md-6 mt-30">
                                         <div class="pp__item pp__item--2 active text-center pt-20 pb-20">
                                             <div class="pp__action pp__action--2 d-flex align-items-center justify-content-center">
-                                                <div class="cart d-flex align-items-center justify-content-center">
-                                                    <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
-                                                </div>
+                                                @if ($product->status['status'])
+                                                    <div class="cart d-flex align-items-center justify-content-center">
+                                                        <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
+                                                    </div>
+                                                @endif
                                                 <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
                                                     <button href="#"><i class="fal fa-eye"></i></button>
                                                 </div>

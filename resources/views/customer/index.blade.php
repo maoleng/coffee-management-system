@@ -140,7 +140,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6 grid-item {{ $product->category_id }} mt-30">
                             <div class="popular-menu__item">
                                 <div class="popular-menu__thumb">
-                                    <img src="{{ $product->images[0]->path ?? null }}" alt="">
+                                    <img style="height: 250px" src="{{ $product->images[0]->path ?? null }}" alt="">
                                 </div>
                                 <div class="popular-menu__content text-center">
                                     <h2 class="title">
@@ -151,9 +151,11 @@
                                         <span class="price"> {{ prettyPrice($product->price) }}</span></span>
                                     </div>
                                     <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                        <div class="cart d-flex align-items-center justify-content-center">
-                                            <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
-                                        </div>
+                                        @if ($product->status['status'])
+                                            <div class="cart d-flex align-items-center justify-content-center">
+                                                <a class="btn-add_to_cart" data-product_id="{{ $product->id }}"><i class="fal fa-shopping-basket"></i></a>
+                                            </div>
+                                        @endif
                                         <div data-product_id="{{ $product->id }}" class="view d-flex align-items-center justify-content-center">
                                             <button href="#"><i class="fal fa-eye"></i></button>
                                         </div>
