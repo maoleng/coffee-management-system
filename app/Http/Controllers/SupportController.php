@@ -62,7 +62,7 @@ class SupportController extends Controller
         $support->response = $response;
         $support->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Send response successfully');
     }
 
     public function filter(Support $support): RedirectResponse
