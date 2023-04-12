@@ -69,9 +69,12 @@ class SupplierController extends Controller
 
     public function destroy(Supplier $supplier): RedirectResponse
     {
+        if ($supplier->imports->isNotEmpty()) {
+            return redirect()->back()->with('error', 'Supplier has import products');
+        }
         $supplier->delete();
 
-        return redirect()->route('admin.supplier.index');
+        return redirect()->route('admin.supplier.index')->with('success', 'Delete supplier successfully');
     }
 
 
