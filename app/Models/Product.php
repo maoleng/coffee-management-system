@@ -71,11 +71,13 @@ class Product extends Base
             $collect += $import->pivot->amount;
         }
         $last_import_date = $imports->max('created_at');
-        $date_left = Carbon::create(now()->addMonths($this->expire_month))->diffInDays($last_import_date, 5);
+        $date_left = $last_import_date === null ?
+            'Not imported before' :
+            Carbon::create(now()->addMonths($this->expire_month))->diffInDays($last_import_date, 5) .' days';
 
         return [
             'amount' => $collect - $spend,
-            'date' => $date_left . ' days',
+            'date' => $date_left,
         ];
     }
 
