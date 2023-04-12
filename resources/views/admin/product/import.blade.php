@@ -15,9 +15,6 @@
                 <h4 class="card-title">Product</h4>
             </div>
             <div class="card-body">
-                @if (session()->get('error') !== null)
-                    {{ session()->get('error') }}
-                @endif
                 <form action="{{ route('admin.warehouse.process_import') }}" method="post" class="invoice-repeater">
                     @csrf
                     <div class="col-md-3 col-12">
@@ -98,21 +95,28 @@
 
 
 @section('vendor_style')
-{{--    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/animate/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/sweetalert2.min.css') }}">
 @endsection
 
 @section('page_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/core/menu/menu-types/vertical-menu.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-sweet-alerts.css') }}">
 @endsection
 
 @section('page_vendor_script')
-{{--    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>--}}
-
     <script src="{{ asset('app-assets/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
+
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/polyfill.min.js') }}"></script>
 @endsection
 
 @section('page_script')
     <script src="{{ asset('app-assets/js/scripts/forms/form-repeater.js') }}"></script>
-{{--    <script src="{{ asset('app-assets/js/scripts/forms/form-select2.js') }}"></script>--}}
+
+    <script>
+        {!! successAlert() !!}
+        {!! errorAlert() !!}
+    </script>
 @endsection

@@ -16,11 +16,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-start">
                         <div class="author-info">
-                            <h6 class="mb-25">
-                                @if (session()->get('error') !== null)
-                                    {{ session()->get('error') }}
-                                @endif
-                            </h6>
+                            <h6 class="mb-25"></h6>
                         </div>
                     </div>
                     <form action="{{ route('admin.warehouse.update', ['product' => $product]) }}" method="post" enctype="multipart/form-data" class="mt-2">
@@ -98,11 +94,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/editors/quill/katex.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/editors/quill/monokai-sublime.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/editors/quill/quill.snow.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/animate/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/sweetalert2.min.css') }}">
 @endsection
 
 @section('page_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-quill-editor.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/page-blog.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-sweet-alerts.css') }}">
 @endsection
 
 @section('page_vendor_script')
@@ -113,10 +114,17 @@
 
     <script src="{{ asset('app-assets/vendors/js/forms/cleave/cleave.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
+
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/polyfill.min.js') }}"></script>
 @endsection
 
 @section('page_script')
     <script src="{{ asset('app-assets/js/scripts/pages/page-blog-edit.js') }}"></script>
 
     <script src="{{ asset('app-assets/js/scripts/forms/form-input-mask.js') }}"></script>
+    <script>
+        {!! successAlert() !!}
+        {!! errorAlert() !!}
+    </script>
 @endsection

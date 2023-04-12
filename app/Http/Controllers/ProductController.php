@@ -116,11 +116,11 @@ class ProductController extends Controller
     public function processImport(Request $request): RedirectResponse
     {
         $data = $request->all();
-        $data['products'] = collect($data['products'])->whereNotNull('product_id')
-            ->whereNotNull('price')->whereNotNull('amount')->toArray();
         if (empty($data['products'])) {
             return redirect()->back()->with('error', 'Product not found or not filled');
         }
+        $data['products'] = collect($data['products'])->whereNotNull('product_id')
+            ->whereNotNull('price')->whereNotNull('amount')->toArray();
         $this->destroyOldProducts(array_column($data['products'], 'product_id'));
         $import = Import::query()->create([
             'total' => 0,
@@ -180,6 +180,9 @@ class ProductController extends Controller
     public function store(ProductRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        if (empty($data['images']) || count($data['images']) < 2) {
+            return redirect()->back()->with('error', 'Please provide at least 2 images');
+        }
         $product = Product::query()->create([
             'name' => $data['name'],
             'price' => $data['price'],
@@ -199,6 +202,6 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.warehouse.index');
+        return redirect()->route('admin.warehouse.index')->with('success', 'New product has been created successfully');
     }
 }
