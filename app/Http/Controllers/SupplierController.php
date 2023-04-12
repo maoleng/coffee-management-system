@@ -51,12 +51,12 @@ class SupplierController extends Controller
             'phone' => $data['phone'],
         ]);
 
-        return redirect()->route('admin.supplier.index');
+        return redirect()->route('admin.supplier.index')->with('success', 'New supplier has been created');
     }
 
     public function update(SupplierRequest $request, Supplier $supplier): RedirectResponse
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $supplier->update([
             'name' => $data['name'],
@@ -64,7 +64,7 @@ class SupplierController extends Controller
             'phone' => $data['phone'],
         ]);
 
-        return redirect()->route('admin.supplier.index');
+        return redirect()->route('admin.supplier.index')->with('success', 'Updated supplier successfully');
     }
 
     public function destroy(Supplier $supplier): RedirectResponse
