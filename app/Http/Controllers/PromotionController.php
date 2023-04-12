@@ -95,7 +95,7 @@ class PromotionController extends Controller
             'expired_at' => $data['expired_at'],
         ]);
 
-        return redirect()->route('admin.promotion.index');
+        return redirect()->route('admin.promotion.index')->with('success', 'Update promotion successfully');
     }
 
 
