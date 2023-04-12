@@ -110,7 +110,7 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect()->route('admin.warehouse.index');
+        return redirect()->route('admin.warehouse.index')->with('success', 'Product deleted successfully');
     }
 
     public function processImport(Request $request): RedirectResponse

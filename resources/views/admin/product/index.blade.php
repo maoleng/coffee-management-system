@@ -84,10 +84,10 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                                                 <span>Edit</span>
                                             </a>
-                                            <form action="{{ route('admin.warehouse.destroy', ['product' => $product]) }}" method="post">
+                                            <form id="form-{{ $product->id }}" action="{{ route('admin.warehouse.destroy', ['product' => $product]) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn-del dropdown-item" style="width: 100%">
+                                                <button type="button" class="btn-del dropdown-item" style="width: 100%">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                                     <span>Delete</span>
                                                 </button>
@@ -108,17 +108,58 @@
 
 @section('vendor_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/animate/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/sweetalert2.min.css') }}">
 @endsection
 
 @section('page_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-sweet-alerts.css') }}">
 @endsection
 
 @section('page_vendor_script')
     <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/polyfill.min.js') }}"></script>
 @endsection
 
 @section('page_script')
     <script src="{{ asset('app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
     <script src="{{ asset('assets/js/handle_search.js') }}"></script>
+
+    <script>
+        @if (session()->get('success') !== null)
+            Swal.fire({
+                icon: 'success',
+                title: 'Successfully!',
+                text: '{{ session()->get('success') }}',
+                customClass: {
+                    confirmButton: 'btn btn-success'
+                }
+            })
+        @endif
+
+        $('.btn-del').on('click', function () {
+            const form_id = $(this).parent().attr('id')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: $(this).data('message'),
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-outline-danger ms-1'
+                },
+                buttonsStyling: false
+            }).then(function (result) {
+                if (result.value) {
+                    $(`#${form_id}`).submit()
+                }
+            });
+        });
+    </script>
 @endsection
