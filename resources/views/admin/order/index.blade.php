@@ -63,57 +63,55 @@
                         <tbody>
                         @foreach ($orders as $order)
                             <tr>
-                                <td>
-                                    <div type="button" class="avatar avatar pull-up my-0 btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#user-{{ $order->id }}">
-                                        <img src="{{ isset($order->user) ? $order->user->avatar : asset('assets/images/user.png') }}" alt="Avatar" height="26" width="26">
-                                    </div>
-                                    <div class="modal fade modal-info text-start" id="user-{{ $order->id }}" tabindex="-1" aria-labelledby="myModalLabel130" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="myModalLabel130">User Modal</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="card-body">
-                                                        <div class="user-avatar-section">
-                                                            <div class="d-flex align-items-center flex-column">
-                                                                <img class="img-fluid rounded mt-3 mb-2" src="{{ isset($order->user) ? $order->user->avatar : asset('assets/images/user.png') }}" height="110" width="110" alt="User avatar" />
-                                                                <div class="user-info text-center">
-                                                                    <h4>{{ isset($order->user) ? $order->user->name : 'Does not have account' }}</h4>
-                                                                </div>
+                                <td style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#user-{{ $order->id }}">
+                                    <b>{{ $order->name }}</b>
+                                </td>
+                                <div class="modal fade modal-info text-start" id="user-{{ $order->id }}" tabindex="-1" aria-labelledby="myModalLabel130" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="myModalLabel130">User Modal</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card-body">
+                                                    <div class="user-avatar-section">
+                                                        <div class="d-flex align-items-center flex-column">
+                                                            <img class="img-fluid rounded mt-3 mb-2" src="{{ isset($order->user) ? $order->user->avatar : asset('assets/images/user.png') }}" height="110" width="110" alt="User avatar" />
+                                                            <div class="user-info text-center">
+                                                                <h4>{{ isset($order->user) ? $order->user->name : 'Does not have account' }}</h4>
                                                             </div>
                                                         </div>
-                                                        <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4>
-                                                        <div class="info-container">
-                                                            <ul class="list-unstyled">
-                                                                <li class="mb-75">
-                                                                    <span class="fw-bolder me-25">Receiver name:</span>
-                                                                    <span>{{ $order->name }}</span>
-                                                                </li>
-                                                                <li class="mb-75">
-                                                                    <span class="fw-bolder me-25">Address:</span>
-                                                                    <span>{{ $order->address }}</span>
-                                                                </li>
-                                                                <li class="mb-75">
-                                                                    <span class="fw-bolder me-25">Phone:</span>
-                                                                    <span>{{ $order->phone }}</span>
-                                                                </li>
-                                                                <li class="mb-75">
-                                                                    <span class="fw-bolder me-25">Email:</span>
-                                                                    <span>{{ $order->email }}</span>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                    </div>
+                                                    <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4>
+                                                    <div class="info-container">
+                                                        <ul class="list-unstyled">
+                                                            <li class="mb-75">
+                                                                <span class="fw-bolder me-25">Receiver name:</span>
+                                                                <span>{{ $order->name }}</span>
+                                                            </li>
+                                                            <li class="mb-75">
+                                                                <span class="fw-bolder me-25">Address:</span>
+                                                                <span>{{ $order->address }}</span>
+                                                            </li>
+                                                            <li class="mb-75">
+                                                                <span class="fw-bolder me-25">Phone:</span>
+                                                                <span>{{ $order->phone }}</span>
+                                                            </li>
+                                                            <li class="mb-75">
+                                                                <span class="fw-bolder me-25">Email:</span>
+                                                                <span>{{ $order->email }}</span>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-info" data-bs-dismiss="modal">OK</button>
-                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-bs-dismiss="modal">OK</button>
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </div>
                                 <td>{{ $order->prettyTotal }}</td>
                                 <td>
                                     @if (isset($order->promotion))
