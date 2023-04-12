@@ -36,6 +36,7 @@ class AdminController extends Controller
         }
 
         $roles = AdminRole::getDescriptions();
+        array_shift($roles);
         $admins = $builder->orderByDesc('created_at')->paginate(10);
 
         return view('admin.admin.index', [

@@ -12,7 +12,7 @@
                     <div class="col-lg-6 d-flex align-items-start">
                         <div class="dt-action-buttons text-xl-end text-lg-start text-lg-end text-start ">
                             <div class="dt-buttons">
-                                <div class="btn-group dropup">
+                                <div class="btn-group">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         Add Employee
                                     </button>
@@ -28,7 +28,9 @@
                                                     <label class="form-label" for="blog-edit-category">Role</label>
                                                     <select name="role" id="blog-edit-category" class="select2 form-select">
                                                         @foreach ($roles as $key => $role)
-                                                            <option value="{{ $key }}">{{ $role }}</option>
+                                                            @if ($role !== \App\Enums\AdminRole::ADMIN)
+                                                                <option value="{{ $key }}">{{ $role }}</option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
