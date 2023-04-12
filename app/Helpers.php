@@ -44,3 +44,24 @@ if (!function_exists('validRole')) {
         return in_array(authed()->role, [AdminRole::ADMIN, $role], true);
     }
 }
+
+if (!function_exists('successAlert')) {
+    function successAlert(): string
+    {
+        $message = session()->get('success');
+        if ($message === null) {
+            return '';
+        }
+
+        return "
+            Swal.fire({
+                icon: 'success',
+                title: 'Successfully!',
+                text: '$message',
+                customClass: {
+                    confirmButton: 'btn btn-success'
+                }
+            })
+        ";
+    }
+}

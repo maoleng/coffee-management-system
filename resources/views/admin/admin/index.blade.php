@@ -162,16 +162,7 @@
     <script src="{{ asset('assets/js/handle_search.js') }}"></script>
 
     <script>
-        @if (session()->get('success') !== null)
-            Swal.fire({
-                icon: 'success',
-                title: 'Successfully!',
-                text: '{{ session()->get('success') }}',
-                customClass: {
-                    confirmButton: 'btn btn-success'
-                }
-            })
-        @endif
+        {!! successAlert() !!}
 
         const btn_lock = $('.btn-lock')
         btn_lock.on('click', function () {

@@ -93,16 +93,7 @@
     <script src="{{ asset('assets/js/alert.js') }}"></script>
     <script>
         alertDangerEvent('.btn-del')
-        @if (session()->get('success') !== null)
-            Swal.fire({
-                icon: 'success',
-                title: 'Successfully!',
-                text: '{{ session()->get('success') }}',
-                customClass: {
-                    confirmButton: 'btn btn-success'
-                }
-            })
-        @endif
+        {!! successAlert() !!}
     </script>
 
 @endsection
