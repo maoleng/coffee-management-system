@@ -30,14 +30,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->createDefault();
-        $this->createCategories(5);
+        $this->createCategories(3);
         $this->createSuppliers(3);
-        $this->createProducts(50);
+        $this->createProducts(25);
         $this->createImages();
         $this->createImports();
-        $this->createOrders(25);
+        $this->createOrders(200);
         $this->createSupports(25);
-        $this->createPromotions(25);
+        $this->createPromotions(15);
         $this->createPosts(25);
     }
 
