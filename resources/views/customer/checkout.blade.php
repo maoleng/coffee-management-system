@@ -130,11 +130,11 @@
                                                 </div>
                                                 <div class="ct-sub">
                                                     <span>Ship fee</span>
-                                                    <span>- {{ prettyPrice($ship_fee) }}</span>
+                                                    <span>+ {{ prettyPrice($ship_fee) }}</span>
                                                 </div>
                                                 <div class="ct-sub">
                                                     <span>Promotion</span>
-                                                    <span>{{ prettyPrice($promotion_reduce) }}</span>
+                                                    <span>- {{ prettyPrice($promotion_reduce) }}</span>
                                                 </div>
                                                 <div class="ct-sub ct-sub__total">
                                                     <span>Total</span>
