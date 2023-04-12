@@ -70,7 +70,7 @@ class SupportController extends Controller
         $support->status = SupportStatus::FILTERED;
         $support->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Filter successfully!');
     }
 
 

@@ -71,7 +71,7 @@
                                             <form action="{{ route('admin.customer-care.filter', ['support' => $support]) }}" method="post">
                                                 @csrf
                                                 @method('PUT')
-                                                <button class="btn-del dropdown-item" style="width: 100%">
+                                                <button data-message="You are filtering support request by {{ $support->name }}" type="button" class="btn-del dropdown-item" style="width: 100%">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                                     <span>Filter</span>
                                                 </button>
@@ -118,17 +118,40 @@
 
 @section('vendor_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/animate/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/sweetalert2.min.css') }}">
 @endsection
 
 @section('page_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-sweet-alerts.css') }}">
 @endsection
 
 @section('page_vendor_script')
     <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/polyfill.min.js') }}"></script>
 @endsection
 
 @section('page_script')
     <script src="{{ asset('app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
     <script src="{{ asset('assets/js/handle_search.js') }}"></script>
+    <script src="{{ asset('assets/js/alert.js') }}"></script>
+    <script>
+        alertDangerEvent('.btn-del')
+
+        @if (session()->get('success') !== null)
+        Swal.fire({
+            icon: 'success',
+            title: 'Successfully!',
+            text: '{{ session()->get('success') }}',
+            customClass: {
+                confirmButton: 'btn btn-success'
+            }
+        })
+        @endif
+    </script>
 @endsection
