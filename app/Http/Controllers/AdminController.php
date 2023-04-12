@@ -48,8 +48,9 @@ class AdminController extends Controller
     {
         $admin->active = !$admin->active;
         $admin->save();
+        $message = $admin->active ? 'unlocked' : 'locked';
 
-        return redirect()->route('admin.hrm.index');
+        return redirect()->route('admin.hrm.index')->with('success', "Account has been $message");
     }
 
     public function store(AdminRequest $request): RedirectResponse

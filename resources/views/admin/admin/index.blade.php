@@ -108,15 +108,15 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <form action="{{ route('admin.hrm.cancel', ['admin' => $admin]) }}" method="post">
+                                                <form id="form-{{ $admin->id }}" action="{{ route('admin.hrm.cancel', ['admin' => $admin]) }}" method="post">
                                                     @csrf
                                                     @method('PUT')
                                                     @if ($admin->active)
-                                                        <button class="btn-del dropdown-item" style="width: 100%">
+                                                        <button type="button" data-message="You are locking account" class="btn-lock dropdown-item" style="width: 100%">
                                                             <span>Lock</span>
                                                         </button>
                                                     @else
-                                                        <button class="btn-del dropdown-item" style="width: 100%">
+                                                        <button type="button" data-message="You are unlocking account" class="btn-lock dropdown-item" style="width: 100%">
                                                             <span>Unlock</span>
                                                         </button>
                                                     @endif
@@ -138,18 +138,60 @@
 
 @section('vendor_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/animate/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/sweetalert2.min.css') }}">
 @endsection
 
 @section('page_style')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-sweet-alerts.css') }}">
 @endsection
 
 @section('page_vendor_script')
     <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+
+    <script src="{{ asset('app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/js/extensions/polyfill.min.js') }}"></script>
 @endsection
 
 @section('page_script')
     <script src="{{ asset('app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
     <script src="{{ asset('app-assets/js/scripts/components/components-dropdowns.js') }}"></script>
     <script src="{{ asset('assets/js/handle_search.js') }}"></script>
+
+    <script>
+        @if (session()->get('success') !== null)
+            Swal.fire({
+                icon: 'success',
+                title: 'Successfully!',
+                text: '{{ session()->get('success') }}',
+                customClass: {
+                    confirmButton: 'btn btn-success'
+                }
+            })
+        @endif
+
+        const btn_lock = $('.btn-lock')
+        btn_lock.on('click', function () {
+            const form_id = $(this).parent().attr('id')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: $(this).data('message'),
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-outline-danger ms-1'
+                },
+                buttonsStyling: false
+            }).then(function (result) {
+                if (result.value) {
+                    $(`#${form_id}`).submit()
+                }
+            });
+        });
+    </script>
 @endsection
