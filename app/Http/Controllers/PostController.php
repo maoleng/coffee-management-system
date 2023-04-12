@@ -125,7 +125,7 @@ class PostController extends Controller
         $post->postTags()->sync([]);
         $post->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Delete successfully');
     }
 
     private function handleTags($input_tags, Post $post): void
