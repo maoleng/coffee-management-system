@@ -9,7 +9,7 @@ class PromotionRequest extends BaseRequest
 
     public function rules(): array
     {
-        $rules = [
+        return [
             'name' => [
                 'required',
             ],
@@ -35,12 +35,6 @@ class PromotionRequest extends BaseRequest
                 'required',
             ],
         ];
-        $method = request()->route()->getActionMethod();
-        if ($method === 'update') {
-            unset($rules['expired_at']);
-        }
-
-        return $rules;
     }
 
     public function prepareForValidation(): void

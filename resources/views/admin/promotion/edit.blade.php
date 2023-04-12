@@ -46,7 +46,7 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-2">
                                     <label class="form-label" for="blog-edit-title">Expired at</label>
-                                    <input name="expired_at" type="text" id="fp-date-time" class="form-control flatpickr-date-time" placeholder="YYYY-MM-DD HH:MM" />
+                                    <input value="{{ $promotion->inputExpiredAt }}" name="expired_at" type="text" id="fp-date-time" class="form-control flatpickr-date-time" placeholder="YYYY-MM-DD HH:MM" />
                                 </div>
                             </div>
                             <div class="col-12">

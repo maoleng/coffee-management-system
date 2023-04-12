@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 class Promotion extends Base
 {
     public $timestamps = false;
@@ -17,6 +19,11 @@ class Promotion extends Base
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function getInputExpiredAtAttribute(): string
+    {
+        return Carbon::make($this->expired_at)->format('Y-m-d H:i');
     }
 
     public function getPrettyActiveAttribute(): string

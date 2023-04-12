@@ -92,6 +92,7 @@ class PromotionController extends Controller
             'code' => $data['code'],
             'percent' => $data['percent'],
             'active' => $data['active'],
+            'expired_at' => $data['expired_at'],
         ]);
 
         return redirect()->route('admin.promotion.index');
