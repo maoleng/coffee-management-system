@@ -51,14 +51,17 @@ class OrderController extends Controller
         $update_data = [];
         if (isset($data['is_paid'])) {
             $update_data['is_paid'] = (bool) $data['is_paid'];
+            $message = 'Update payment status successfully';
         }
         if (isset($data['status'])) {
             if ((int) $data['status'] === OrderStatus::SUCCESSFUL) {
                 $update_data['is_paid'] = true;
             }
             $update_data['status'] = (int) $data['status'];
+            $message = 'Update status successfully';
         }
         Order::query()->where('id', $order_id)->update($update_data);
+        session()->flash('success', $message);
     }
 
     public function print(): View
