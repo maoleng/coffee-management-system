@@ -94,6 +94,7 @@
     <script>
         alertDangerEvent('.btn-del')
         {!! successAlert() !!}
+        {!! errorAlert() !!}
     </script>
 
 @endsection

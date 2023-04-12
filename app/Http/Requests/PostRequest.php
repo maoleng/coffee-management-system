@@ -33,12 +33,4 @@ class PostRequest extends BaseRequest
         return $rules;
     }
 
-    public function prepareForValidation(): void
-    {
-        $price = str_replace(',', '', $this->price);
-        $this->merge([
-            'price' => (int) $price,
-            'expire_month' => (int) $this->expire_month,
-        ]);
-    }
 }

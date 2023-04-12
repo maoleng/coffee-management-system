@@ -81,6 +81,12 @@ class PostController extends Controller
     public function store(PostRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        if (empty($data['banner'])) {
+            return redirect()->back()->with('error', 'Please provide a banner');
+        }
+        if (empty($data['tags'])) {
+            return redirect()->back()->with('error', 'Please provide tags');
+        }
 
         $post = Post::query()->create([
             'title' => $data['title'],
@@ -97,7 +103,7 @@ class PostController extends Controller
 
         $this->handleTags($data['tags'] ?? [], $post);
 
-        return redirect()->route('admin.post.index');
+        return redirect()->route('admin.post.index')->with('success', 'New post created successfully');
     }
 
 
@@ -117,7 +123,7 @@ class PostController extends Controller
         $post->update($update_data);
         $this->handleTags($data['tags'] ?? [], $post);
 
-        return redirect()->route('admin.post.index');
+        return redirect()->route('admin.post.index')->with('success', 'Updated post successfully');
     }
 
     public function destroy(Post $post): RedirectResponse
