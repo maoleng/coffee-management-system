@@ -116,8 +116,8 @@
                                                 </div>
                                             </div>
                                             <div class="pp__thumb pp__thumb--2 mt-35">
-                                                <img class="default" src="{{ $product->images[0]->path ?? null }}" alt="">
-                                                <img class="on-hover" src="{{ $product->images[1]->path ?? null }}" alt="">
+                                                <img class="default" style="height: 133px" src="{{ $product->images[0]->path ?? null }}" alt="">
+                                                <img class="on-hover" style="height: 133px" src="{{ $product->images[1]->path ?? null }}" alt="">
                                             </div>
                                             <div class="pp__content pp__content--2 mt-25">
                                                 <div class="pp__c-top d-flex align-items-center justify-content-center">
